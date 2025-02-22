@@ -7,7 +7,10 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "~/assets/scss/lib/breakpoints.scss" as *;',
+          additionalData: `
+            @use "~/assets/scss/lib/_breakpoints.scss" as *;
+            @use "~/assets/scss/lib/_grid.scss" as *;
+          `,
         },
       },
     },

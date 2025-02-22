@@ -131,3 +131,12 @@ Breakpoint optional for orientation.
     @content;
   }
 }
+
+//  Add base map to css variables – these are used to set current breakpoint value in JS
+:root {
+  @each $key, $breakpoint in $breakpoints {
+    @include use-mq($key) {
+      --breakpoint: '#{$key}';
+    }
+  }
+}
