@@ -1,0 +1,133 @@
+@use 'sass:map';
+@use 'sass:string';
+
+// Define base breakpoints
+
+$breakpoints: (
+  'xs': (
+    'min': null,
+    'max': 575px,
+  ),
+  'sm': (
+    'min': 576px,
+    'max': 768px,
+  ),
+  'md': (
+    'min': 769px,
+    'max': 975px,
+  ),
+  'lg': (
+    'min': 976px,
+    'max': 1199px,
+  ),
+  'xl': (
+    'min': 1200px,
+    'max': 1599px,
+  ),
+  'xxl': (
+    'min': 1600px,
+    'max': null,
+  ),
+);
+
+/* 
+Add min-max variations based on the base:
+For each base breakpoint, add a min-width and max-width option based on min & max vals: e.g. min-sm, max-sm or min-xl, max-xl
+For breakpoints with no min or max, do not add min-${name} values
+*/
+
+@function getVariations() {
+  $variations: ();
+
+  @each $key, $breakpoint in $breakpoints {
+    // Add breakpoint to variations
+    $variations: map.merge(
+      $map1: $variations,
+      $map2: (
+        $key: $breakpoint,
+      ),
+    );
+
+    // Get min & max values
+    $min: map.get($breakpoint, 'min');
+    $max: map.get($breakpoint, 'max');
+
+    @if ($max != null) {
+      // Create a key for the max-width breakpoint
+      $max-width-key: string.unquote(
+        $string: 'max-' + $key,
+      );
+
+      // Add new max-width breakpoint to the variations map
+      $variations: map.merge(
+        $map1: $variations,
+        $map2: (
+          $max-width-key: (
+            'min': null,
+            'max': $max,
+          ),
+        ),
+      );
+    }
+
+    @if ($min != null) {
+      $min-width-key: string.unquote(
+        $string: 'min-' + $key,
+      );
+
+      $variations: map.merge(
+        $map1: $variations,
+        $map2: (
+          $min-width-key: (
+            'min': $min,
+            'max': null,
+          ),
+        ),
+      );
+    }
+  }
+
+  @return $variations;
+}
+
+// Define final breakpoints map:
+
+$breakpoint-map: getVariations();
+
+/*
+Add a mixin that gets a breakpoint by key from the final breakpoints map and returns a media query based on min-max vals.
+Breakpoint optional for orientation.
+*/
+
+@mixin use-mq($bp, $hover: null) {
+  $breakpoint: map.get($breakpoint-map, $bp);
+  $query-string: 'screen ';
+
+  @if ($bp != null) {
+    @if $breakpoint {
+      $min: map.get($breakpoint, 'min');
+      $max: map.get($breakpoint, 'max');
+      @if $min {
+        $query-string: $query-string + 'and (width >=' + $min + ')';
+      }
+
+      @if $max {
+        $query-string: $query-string + 'and (width <=' + $max + ')';
+      }
+    } @else {
+      @error 'Breakpoint not found.';
+    }
+  }
+
+  @if $hover {
+    @if $hover == 'hover' {
+      $query-string: $query-string + ' and (hover: hover)';
+    } @else {
+      $query-string: $query-string + ' and (hover: none)';
+    }
+  }
+
+  @media #{$query-string} {
+    @content;
+  }
+}
