@@ -1,2 +1,6 @@
 @use './lib/_reset.scss';
 @use './lib/_vars.scss';
+
+.flex {
+  display: flex;
+}

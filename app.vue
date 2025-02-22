@@ -1,5 +1,6 @@
+<script setup lang="ts"></script>
 <template>
-  <div class="test">foo</div>
+  <UtilsGrid />
 </template>
 <style lang="scss">
 .test {
@@ -10,15 +11,6 @@
 
   @include use-mq('min-xl') {
     color: black;
-  }
-  /* @include get-cols(4); */
-
-  &::after {
-    background: gray;
-    content: '';
-    height: 100svh;
-
-    @include get-cols(1);
   }
 }
 </style>
