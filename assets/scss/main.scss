@@ -5,6 +5,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
+  background: var(--bg-color);
+  color: var(--text-color);
   font-family: 'Montserrat', serif;
   font-style: normal;
 
@@ -15,4 +17,10 @@ body {
 
 .flex {
   display: flex;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
 }
