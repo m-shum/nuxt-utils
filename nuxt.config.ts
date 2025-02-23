@@ -11,6 +11,7 @@ export default defineNuxtConfig({
           additionalData: `
             @use "~/assets/scss/lib/_vars.scss" as *;
             @use "~/assets/scss/lib/_breakpoints.scss" as *;
+            @use "~/assets/scss/lib/_typography.scss" as *;
             @use "~/assets/scss/lib/_grid.scss" as *;
           `,
         },
