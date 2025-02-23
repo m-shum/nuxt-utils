@@ -1,0 +1,60 @@
+@use 'sass:math';
+@use 'sass:map';
+@use './_breakpoints.scss' as *;
+
+// Viewport size when fontsize starts to increase: x1
+// Viewport size when fontsize stops increasing: x2
+// Min base fontsize: y1
+// Max base fontsize: y2
+// Relative desired fontsize: v(vw) + r(rem/px/em/whatever font-size units are for min & max)
+// v = 100 * (y2 - y1) / (x2 - x1)
+// r = (x1 * y2 – x2 * y1) / (x1 - x2)
+
+// $font-base and $viewport units must be the same – pixels. Units have been stripped for simplicity
+
+$type-scale: 1.25; // TODO (big maybe): dynamic type-scale based on viewport?
+
+$font-base: (
+  'min': 14,
+  'max': 18,
+);
+$viewport: (
+  'min': 768,
+  'max': 1599,
+);
+
+@mixin font-size($var) {
+  $magnitude: math.abs($var);
+
+  $scale-start: map.get($viewport, 'min');
+  $scale-end: map.get($viewport, 'max');
+
+  $min-font-size: map.get($font-base, 'min');
+  $max-font-size: map.get($font-base, 'max');
+
+  @for $i from 1 through $magnitude {
+    @if $var < 1 {
+      $min-font-size: $min-font-size / $type-scale;
+      $max-font-size: $max-font-size / $type-scale;
+    } @else if $var > 1 {
+      $min-font-size: $min-font-size * $type-scale;
+      $max-font-size: $max-font-size * $type-scale;
+    }
+  }
+
+  @debug $min-font-size;
+
+  $relative-vw: 100 * ($max-font-size - $min-font-size) /
+    ($scale-end - $scale-start);
+
+  $relative-font-size: (
+      ($scale-start * $max-font-size) - ($scale-end * $min-font-size)
+    ) / ($scale-start - $scale-end);
+
+  // To make the font sizes more accessible, convert into rem (divide by 16)
+  font-size: clamp(
+    #{$min-font-size / 16}rem,
+    #{$relative-vw}vw + #{$relative-font-size / 16}rem,
+    #{$max-font-size / 16}rem
+  );
+}
