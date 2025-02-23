@@ -8,12 +8,17 @@
       var(--grid-cols)
   ); // Omit margins if base-width excludes them
 
-  @include use-mq('min-md') {
+  @include use-mq('max-xs') {
+    --grid-cols: 1;
+  }
+  @include use-mq('min-sm') {
     --grid-cols: 4;
   }
-
-  @include use-mq('min-xl') {
+  @include use-mq('min-lg') {
     --grid-cols: 6;
+  }
+  @include use-mq('min-xxl') {
+    --grid-cols: 8;
   }
 }
 
