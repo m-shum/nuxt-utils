@@ -1,15 +1,14 @@
 <script setup lang="ts">
-useBreakpoints()
+const isDevMode = import.meta.dev
 const breakpoint = useState('breakpoint')
-const isTouchscreen = useState('isTouchscreen')
 const gridCols = useState('gridCols')
 </script>
 <template>
-  <div class="flex grid">
+  <div v-if="isDevMode" class="flex grid">
     <div class="grid__info">
       <span>breakpoint – {{ breakpoint }}</span>
     </div>
-    <div v-for="(col, idx) in gridCols" :key="idx" class="grid__col"></div>
+    <div v-for="col in gridCols" class="grid__col" />
   </div>
 </template>
 <style lang="scss">
@@ -23,16 +22,19 @@ const gridCols = useState('gridCols')
 
   &__col {
     background: red;
-    opacity: 0.05;
+    opacity: 0.03;
     height: 100svh;
 
     @include get-cols(1);
   }
 
   &__info {
-    position: fixed;
     bottom: var(--base-margin);
+    font-weight: 600;
     left: var(--base-margin);
+    position: fixed;
+
+    @include font-size(-1);
   }
 }
 </style>

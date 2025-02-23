@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useBreakpoints()
+</script>
 <template>
   <UtilsGrid />
 </template>
