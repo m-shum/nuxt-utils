@@ -12,7 +12,7 @@
 
 // $font-base and $viewport units must be the same – pixels. Units have been stripped for simplicity
 
-$type-scale: 1.25; // TODO (big maybe): dynamic type-scale based on viewport?
+$type-scale: 1.414; // TODO (big maybe): dynamic type-scale based on viewport?
 
 $font-base: (
   'min': 14,
@@ -23,8 +23,8 @@ $viewport: (
   'max': 1599,
 );
 
-@mixin font-size($var) {
-  $magnitude: math.abs($var);
+@function get-font-size($mag) {
+  $magnitude: math.abs($mag);
 
   $scale-start: map.get($viewport, 'min');
   $scale-end: map.get($viewport, 'max');
@@ -33,28 +33,53 @@ $viewport: (
   $max-font-size: map.get($font-base, 'max');
 
   @for $i from 1 through $magnitude {
-    @if $var < 1 {
-      $min-font-size: $min-font-size / $type-scale;
-      $max-font-size: $max-font-size / $type-scale;
-    } @else if $var > 1 {
+    @if $mag < 1 {
+      $min-font-size: math.div($min-font-size, $type-scale);
+      $max-font-size: math.div($max-font-size, $type-scale);
+    } @else if $mag > 1 {
       $min-font-size: $min-font-size * $type-scale;
       $max-font-size: $max-font-size * $type-scale;
     }
   }
 
-  @debug $min-font-size;
+  $relative-vw: 100 *
+    math.div(($max-font-size - $min-font-size), ($scale-end - $scale-start));
 
-  $relative-vw: 100 * ($max-font-size - $min-font-size) /
-    ($scale-end - $scale-start);
-
-  $relative-font-size: (
-      ($scale-start * $max-font-size) - ($scale-end * $min-font-size)
-    ) / ($scale-start - $scale-end);
-
-  // To make the font sizes more accessible, convert into rem (divide by 16)
-  font-size: clamp(
-    #{$min-font-size / 16}rem,
-    #{$relative-vw}vw + #{$relative-font-size / 16}rem,
-    #{$max-font-size / 16}rem
+  $relative-font-size: math.div(
+    $scale-start * $max-font-size - $scale-end * $min-font-size,
+    $scale-start - $scale-end
   );
+  // To make the font sizes more accessible, convert into rem (divide by 16)
+  $min-font-size: math.div($min-font-size, 16);
+  $max-font-size: math.div($max-font-size, 16);
+  $relative-font-size: math.div($relative-font-size, 16);
+
+  @return clamp(
+    #{$min-font-size}rem,
+    #{$relative-vw}vw + #{$relative-font-size}rem,
+    #{$max-font-size}rem
+  );
+}
+
+:root {
+  --body-copy: #{get-font-size(1)};
+  --text-h3: #{get-font-size(2)};
+  --text-h2: #{get-font-size(3)};
+  --text-h4: #{get-font-size(4)};
+  --base-line-height: calc(#{get-font-size(1)} * 1.4);
+}
+
+@mixin align-to-baseline($size, $baselines, $lines-beneath) {
+  $base-line-height: calc(#{get-font-size(1)} * 1.4);
+  $baseline-shift: calc(
+    calc(calc($baselines * (#{get-font-size(1)} * 1.4)) - 1cap) / 2
+  );
+  $baseline-push: calc(
+    calc($lines-beneath * (#{get-font-size(1)} * 1.4)) - $baseline-shift
+  );
+  & {
+    line-height: calc(#{$baselines} * #{$base-line-height});
+    padding-top: $baseline-shift;
+    margin-bottom: $baseline-push;
+  }
 }

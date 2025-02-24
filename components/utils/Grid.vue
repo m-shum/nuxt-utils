@@ -13,28 +13,30 @@ const gridCols = useState('gridCols')
 </template>
 <style lang="scss">
 .grid {
+  background-image: linear-gradient(to bottom, #0ff 0, transparent 1px);
+  background-repeat: repeat-y;
+  background-size: 100% var(--base-line-height);
   gap: var(--grid-gutter);
   margin: 0 var(--base-margin);
+  left: 0;
   position: fixed;
   pointer-events: none;
   top: 0;
-  left: 0;
 
   &__col {
     background: red;
     opacity: 0.03;
     height: 100svh;
 
-    @include get-cols(1);
+    @include get-cols(1, width);
   }
 
   &__info {
     bottom: var(--base-margin);
+    font-size: #{get-font-size(-1)};
     font-weight: 600;
     left: var(--base-margin);
     position: fixed;
-
-    @include font-size(-1);
   }
 }
 </style>

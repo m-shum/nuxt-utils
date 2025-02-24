@@ -9,14 +9,38 @@ body {
   color: var(--text-color);
   font-family: 'Montserrat', serif;
   font-style: normal;
+  font-size: #{get-font-size(1)};
+}
 
-  @include font-size(1);
+.container {
+  padding-left: var(--base-margin);
+  padding-right: var(--base-margin);
+}
+
+// Typography //
+
+h1 {
+  font-size: #{get-font-size(4)};
+}
+h2 {
+  font-size: #{get-font-size(3)};
+}
+h3 {
+  font-size: #{get-font-size(2)};
+}
+
+p {
+  @include align-to-baseline(1, 1, 1);
 }
 
 // Reusable Classes //
 
 .flex {
   display: flex;
+}
+
+.flex-gap-base {
+  gap: var(--grid-gutter);
 }
 
 @media (prefers-color-scheme: dark) {

@@ -3,6 +3,9 @@ useBreakpoints()
 </script>
 <template>
   <UtilsGrid />
+  <main class="container">
+    <SampleCopy />
+  </main>
 </template>
 <style lang="scss">
 .test {
