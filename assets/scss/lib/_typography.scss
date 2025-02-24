@@ -78,8 +78,8 @@ $viewport: (
 
   & {
     line-height: calc(#{$baselines} * #{$base-line-height});
-    padding-top: $baseline-shift;
     margin-bottom: $baseline-push;
+    padding-top: $baseline-shift;
   }
 }
 
@@ -87,22 +87,22 @@ $viewport: (
   @if $weight == light {
     & {
       font-family: neue-haas-grotesk-display, sans-serif;
-      font-weight: 400;
       font-style: normal;
+      font-weight: 400;
     }
   }
   @if $weight == medium {
     & {
       font-family: neue-haas-grotesk-display, sans-serif;
-      font-weight: 600;
       font-style: normal;
+      font-weight: 600;
     }
   }
   @if $weight == black {
     & {
       font-family: neue-haas-grotesk-display, sans-serif;
-      font-weight: 900;
       font-style: normal;
+      font-weight: 900;
     }
   }
 }

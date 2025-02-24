@@ -38,14 +38,14 @@ onMounted(() => {
   width: 100vw;
 
   button {
-    bottom: var(--base-margin);
     border: 1px solid var(--text-color);
     border-radius: 50px;
+    bottom: var(--base-margin);
     font-size: #{get-font-size(-1)};
     font-weight: 600;
-    right: var(--base-margin);
     padding: 0.75rem 1.25rem;
     position: fixed;
+    right: var(--base-margin);
     transition: color 0.25s ease;
 
     &:hover {
@@ -62,11 +62,12 @@ onMounted(() => {
 
     &__col {
       background: red;
-      opacity: 0.03;
       height: 100svh;
+      opacity: 0.03;
       @include get-cols(1, width);
     }
   }
+
   &__info {
     bottom: var(--base-margin);
     font-size: #{get-font-size(-1)};
