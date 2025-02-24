@@ -14,11 +14,5 @@ module.exports = {
         singleQuote: true,
       },
     ],
-    'selector-class-pattern': [
-      /^[a-z]+(?:-[a-z]+)*(?:_{2}[a-z]+(?:-[a-z]+)*)?(?:-{2}[a-z]+(?:-[a-z]+)*)?$/,
-      {
-        resolveNestedSelectors: true,
-      },
-    ],
   },
 }
