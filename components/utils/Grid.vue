@@ -1,36 +1,72 @@
 <script setup lang="ts">
 const isDevMode = import.meta.dev
+
 const breakpoint = useState('breakpoint')
 const gridCols = useState('gridCols')
+
+const showGrid = ref(false)
+const toggleGrid = () => {
+  if (!isDevMode) return
+  showGrid.value = !showGrid.value
+  showGrid.value
+    ? document.body.classList.add('dev-grid')
+    : document.body.classList.remove('dev-grid')
+}
+
+onMounted(() => {
+  toggleGrid()
+})
 </script>
 <template>
-  <div v-if="isDevMode" class="flex grid">
-    <div class="grid__info">
-      <span>breakpoint – {{ breakpoint }}</span>
+  <div class="dev-ui" v-if="isDevMode">
+    <button @click="toggleGrid">Toggle Grid</button>
+
+    <div v-show="showGrid">
+      <span class="dev-ui__info">breakpoint – {{ breakpoint }}</span>
+      <div class="flex dev-ui__grid">
+        <div v-for="col in gridCols" class="dev-ui__grid__col" />
+      </div>
     </div>
-    <div v-for="col in gridCols" class="grid__col" />
   </div>
 </template>
 <style lang="scss">
-.grid {
-  background-image: linear-gradient(to bottom, #0ff 0, transparent 1px);
-  background-repeat: repeat-y;
-  background-size: 100% var(--base-line-height);
-  gap: var(--grid-gutter);
-  margin: 0 var(--base-margin);
+.dev-ui {
+  height: 100svh;
   left: 0;
   position: fixed;
-  pointer-events: none;
   top: 0;
+  width: 100vw;
 
-  &__col {
-    background: red;
-    opacity: 0.03;
-    height: 100svh;
+  button {
+    bottom: var(--base-margin);
+    border: 1px solid var(--text-color);
+    border-radius: 50px;
+    font-size: #{get-font-size(-1)};
+    font-weight: 600;
+    right: var(--base-margin);
+    padding: 0.75rem 1.25rem;
+    position: fixed;
+    transition: color 0.25s ease;
 
-    @include get-cols(1, width);
+    &:hover {
+      background: var(--text-color);
+      color: var(--bg-color);
+    }
   }
 
+  &__grid {
+    gap: var(--grid-gutter);
+    height: 100%;
+    margin: 0 var(--base-margin);
+    pointer-events: none;
+
+    &__col {
+      background: red;
+      opacity: 0.03;
+      height: 100svh;
+      @include get-cols(1, width);
+    }
+  }
   &__info {
     bottom: var(--base-margin);
     font-size: #{get-font-size(-1)};

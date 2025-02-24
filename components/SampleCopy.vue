@@ -42,13 +42,13 @@
   }
 
   h1 {
-    @include align-to-baseline(4, 3, 2);
+    @include align-to-baseline(4, 3, 3);
   }
   h2 {
-    @include align-to-baseline(3, 2, 1);
+    @include align-to-baseline(3, 2, 2);
   }
   h3 {
-    @include align-to-baseline(2, 2, 1);
+    @include align-to-baseline(2, 2, 2);
   }
 }
 

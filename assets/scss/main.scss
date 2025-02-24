@@ -1,15 +1,23 @@
-@use './lib/_reset.scss';
-@use './lib/_vars.scss';
-@use './lib/_typography.scss';
+@use './lib/reset';
+@use './lib/vars';
+@use './lib/typography';
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import 'https://use.typekit.net/nmp8xyh.css';
 
 body {
   background: var(--bg-color);
   color: var(--text-color);
-  font-family: 'Montserrat', serif;
-  font-style: normal;
+  font-family: Montserrat, serif;
   font-size: #{get-font-size(1)};
+  font-style: normal;
+  @include font-weight(light);
+
+  &.dev-grid {
+    background-image: linear-gradient(to bottom, #0ff 0, transparent 1px);
+    background-repeat: repeat-y;
+    background-size: 100% var(--base-line-height);
+  }
 }
 
 .container {
@@ -22,9 +30,11 @@ body {
 h1 {
   font-size: #{get-font-size(4)};
 }
+
 h2 {
   font-size: #{get-font-size(3)};
 }
+
 h3 {
   font-size: #{get-font-size(2)};
 }
