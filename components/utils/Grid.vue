@@ -146,15 +146,18 @@ onMounted(() => {
 
     &:hover {
       --button-inner-bg: var(--bg-color);
-      --bg-gradient-1: rgb(255 59 216 / 75.3%);
-      --bg-gradient-2: rgb(255 191 0);
+      --bg-gradient-1: rgb(196 143 186 / 75.3%);
+      --bg-gradient-2: rgb(189 182 160);
       --bg-scale: 55%;
       --bg-pos-1: 12% 0%;
       --bg-pos-2: 85% 100%;
       --bg-pos-3: 22% 0%;
       --bg-pos-4: 75% 100%;
-      --shadow: hsl(316deg 100% 24% / 7%);
-      --shadow-secondary: hsl(45deg 100% 33% / 6.5%);
+      --shadow: hsl(316deg 100% 16% / 9%);
+      --shadow-secondary: hsl(39deg 100% 30% / 7.5%);
+
+      /* --shadow: hsl(316deg 100% 24% / 7%);
+      --shadow-secondary: hsl(45deg 100% 33% / 6.5%); */
     }
 
     &::after {
