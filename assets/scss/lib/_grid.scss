@@ -1,39 +1,6 @@
 @use 'sass:math';
-@use './_breakpoints.scss' as *;
-@use './_vars.scss' as *;
-
-// :root {
-//   --margins: calc(var(--base-margin) * 2);
-//   --total-gutters: calc(var(--grid-gutter) * (var(--grid-cols) - 1));
-//   --col-width: calc(
-//     (var(--container-width) - var(--total-gutters) - var(--margins)) /
-//       var(--grid-cols)
-//   ); // Omit margins if base-width excludes them
-
-//   @include use-mq('max-xs') {
-//     --grid-cols: 1;
-//   }
-//   @include use-mq('min-sm') {
-//     --grid-cols: 4;
-//   }
-//   @include use-mq('min-lg') {
-//     --grid-cols: 6;
-//   }
-//   @include use-mq('min-xxl') {
-//     --grid-cols: 8;
-//   }
-// }
-
-// @mixin get-cols($col-count) {
-//   & {
-//     width: calc(
-//       $col-count * var(--col-width) + (($col-count - 1) * var(--grid-gutter))
-//     );
-//   }
-// }
-
-// @use './_breakpoints.scss' as *;
-// @use './_vars.scss' as *;
+@use './breakpoints.scss' as *;
+@use './vars.scss' as *;
 
 $grid-cols: (
   'xs': 1,
@@ -54,9 +21,6 @@ $grid-cols: (
     (var(--container-width) - var(--total-gutters) - var(--margins)) /
       var(--grid-cols)
   ); // Omit margins if base-width excludes them
-}
-
-:root {
   @each $breakpoint, $cols in $grid-cols {
     @include use-mq($breakpoint) {
       --grid-cols: #{$cols};
@@ -65,20 +29,28 @@ $grid-cols: (
 }
 
 @mixin get-cols($cols, $property) {
-  @each $breakpoint, $max-cols in $grid-cols {
-    $col-count: $cols;
-
-    @if $col-count > $max-cols {
-      $col-count: $max-cols;
-    }
-
-    @include use-mq($breakpoint) {
-      & {
-        #{$property}: calc(
-          $col-count * var(--col-width) +
-            (($col-count - 1) * var(--grid-gutter))
-        );
-      }
-    }
+  & {
+    #{$property}: calc(
+      $cols * var(--col-width) + (($cols - 1) * var(--grid-gutter))
+    );
   }
+
+  // TODO: refactor the logic below
+
+  // @each $breakpoint, $max-cols in $grid-cols {
+  //   $col-count: $cols;
+
+  //   @if $col-count > $max-cols {
+  //     $col-count: $max-cols;
+  //   }
+
+  //   @include use-mq($breakpoint) {
+  //     & {
+  //       #{$property}: calc(
+  //         $col-count * var(--col-width) +
+  //           (($col-count - 1) * var(--grid-gutter))
+  //       );
+  //     }
+  //   }
+  // }
 }
