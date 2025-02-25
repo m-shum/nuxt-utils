@@ -3,6 +3,7 @@ useBreakpoints()
 </script>
 <template>
   <UtilsGrid />
+  <UtilsControls />
   <main class="container">
     <SampleCopy />
   </main>
@@ -10,6 +11,7 @@ useBreakpoints()
 <style lang="scss">
 .test {
   color: red;
+
   /* background: black; */
   display: flex;
   gap: var(--gutter);
