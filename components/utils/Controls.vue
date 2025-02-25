@@ -8,7 +8,7 @@ const toggleControls = () => {
 }
 </script>
 <template>
-  <div class="controls background shadow position transition">
+  <aside class="controls background shadow position transition">
     <div
       class="controls__inner"
       :class="{ 'controls__inner--open': showControls }"
@@ -27,9 +27,9 @@ const toggleControls = () => {
           />
         </svg>
       </button>
-      <div v-show="showControls" class="controls__content"></div>
+      <UtilsControlsMenu />
     </div>
-  </div>
+  </aside>
 </template>
 <style lang="scss">
 @property --shadow {
@@ -199,11 +199,6 @@ const toggleControls = () => {
       height: var(--button-size);
       width: var(--button-size);
     }
-  }
-
-  &__content {
-    padding: var(--base-line-height);
-    width: 100%;
   }
 }
 </style>

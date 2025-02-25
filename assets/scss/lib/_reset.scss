@@ -2,7 +2,6 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizelegibility;
@@ -12,7 +11,6 @@
   cursor: default;
   line-height: 1;
   overflow-wrap: break-word;
-  tab-size: 4;
   tab-size: 4;
   -webkit-tap-highlight-color: transparent;
   text-size-adjust: 100%;
@@ -56,7 +54,6 @@ textarea {
   font: inherit;
   letter-spacing: inherit;
   margin: 0;
-  text-transform: inherit;
 }
 
 button,
@@ -81,16 +78,19 @@ hr,
 ol,
 p,
 pre,
-ul {
+ul,
+menu {
   margin: 0;
-  margin-block-end: 0;
-  margin-block-start: 0;
-  margin-inline-end: 0;
-  margin-inline-start: 0;
-  padding-block-end: 0;
-  padding-block-start: 0;
-  padding-inline-end: 0;
-  padding-inline-start: 0;
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block: 0;
+  padding-inline: 0;
+}
+
+ul,
+ol,
+menu {
+  list-style: none;
 }
 
 h1,
@@ -101,14 +101,10 @@ h5,
 h6 {
   font: inherit;
   margin: 0;
-  margin-block-end: 0;
-  margin-block-start: 0;
-  margin-inline-end: 0;
-  margin-inline-start: 0;
-  padding-block-end: 0;
-  padding-block-start: 0;
-  padding-inline-end: 0;
-  padding-inline-start: 0;
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block: 0;
+  padding-inline: 0;
 }
 
 figure {
