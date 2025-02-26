@@ -59,7 +59,8 @@ const incrementCount = (value: number) => {
       border-bottom: 1px solid var(--outline-color);
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
       background: var(--input-color-focused);
     }
 

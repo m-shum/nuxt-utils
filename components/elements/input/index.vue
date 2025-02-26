@@ -65,6 +65,7 @@ const toggleFocus = (value: boolean) => {
   --shadow-color: 286deg 6% 65%;
   --shadow-opacity: 10%;
   --input-margin: 5px 0 #{get-font-size(-1)};
+  --input-border-radius: 5px;
 
   &--checkbox {
     align-items: center;
@@ -89,7 +90,7 @@ const toggleFocus = (value: boolean) => {
       0.1px 5.2px 5.6px -2.8px hsl(var(--shadow-color) / var(--shadow-opacity));
 
     background: var(--input-color);
-    border-radius: 5px;
+    border-radius: var(--input-border-radius);
     box-shadow: var(--input-shadow);
     margin: var(--input-margin);
     outline: 1px solid var(--outline-color);

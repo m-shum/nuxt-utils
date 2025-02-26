@@ -81,6 +81,20 @@ p {
   width: 100%;
 }
 
+.visually-hidden {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
