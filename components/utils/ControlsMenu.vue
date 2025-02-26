@@ -1,43 +1,53 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const typeScaleOptions = [
+  { label: 'Perfect Third', value: 1.2 },
+  { label: 'Perfect Third', value: 1.2 },
+  { label: 'Perfect Third', value: 1.2 },
+  { label: 'Perfect Third', value: 1.2 },
+  { label: 'Perfect Third', value: 1.2 },
+  { label: 'Perfect Third', value: 1.2 },
+]
+</script>
 <template>
-  <div class="controls-content">
+  <div class="controls-content flex flex-col flex-gap-base">
     <div>
       <h2 id="menu-layout-heading">Layout</h2>
-      <menu aria-labelledby="menu-layout-heading">
+      <menu
+        aria-labelledby="menu-layout-heading"
+        class="controls-content__menu"
+      >
         <li>
-          <label for="base-grid-cols">
-            <input type="number" id="base-grid-cols" name="base-grid-cols" />
-            grid columns
-          </label>
+          <ElementsInputNumber id="base-grid-cols"
+            >grid columns</ElementsInputNumber
+          >
         </li>
         <li>
-          <label for="base-text-cols">
-            <input type="number" id="base-text-cols" name="base-text-cols" />
-            text columns
-          </label>
+          <ElementsInputNumber id="base-text-cols"
+            >text columns</ElementsInputNumber
+          >
         </li>
       </menu>
     </div>
     <div>
       <h2 id="menu-typography-heading">Typography</h2>
-      <menu aria-labelledby="menu-typography-heading">
+      <menu
+        aria-labelledby="menu-typography-heading"
+        class="controls-content__menu"
+      >
         <li>
-          <label for="type-scale">
-            <input type="number" id="type-scale" name="type-scale" />
-            type scale
-          </label>
+          <ElementsInputSelect :options="typeScaleOptions" id="type-scale"
+            >type scale</ElementsInputSelect
+          >
         </li>
         <li>
-          <label for="line-height">
-            <input type="number" id="line-height" name="line-height" />
-            line height
-          </label>
+          <ElementsInputNumber id="line-height"
+            >line height</ElementsInputNumber
+          >
         </li>
         <li>
-          <label for="baline-align">
-            <input type="checkbox" id="baline-align" name="baline-align" />
-            align to baseline
-          </label>
+          <ElementsInputCheckbox type="checkbox" id="baseline-align"
+            >align to baseline</ElementsInputCheckbox
+          >
         </li>
       </menu>
     </div>
@@ -45,7 +55,18 @@
 </template>
 <style lang="scss">
 .controls-content {
+  font-size: #{get-font-size(1)};
+  font-weight: 500;
   padding: var(--base-line-height);
   width: 100%;
+
+  label {
+    font-size: #{get-font-size(-1)};
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>

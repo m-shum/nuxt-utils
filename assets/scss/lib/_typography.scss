@@ -31,34 +31,29 @@ $viewport: (
   $max-font-size: map.get($font-base, 'max');
 
   @for $i from 1 through $magnitude {
-    $scale: 1;
-    @if $mag == -1 {
-      $scale: 0.8;
-    } @else if $mag > 1 {
-      $scale: $type-scale;
+    @if $mag < 1 {
+      $min-font-size: math.div($min-font-size, $type-scale);
+      $max-font-size: math.div($max-font-size, $type-scale);
     }
 
-    $min-font-size: $min-font-size * $scale;
-    $max-font-size: $max-font-size * $scale;
+    @else if $mag >1 {
+      $min-font-size: $min-font-size * $type-scale;
+      $max-font-size: $max-font-size * $type-scale;
+    }
   }
 
-  $relative-vw: 100 *
-    math.div(($max-font-size - $min-font-size), ($scale-end - $scale-start));
-  $relative-font-size: math.div(
-    $scale-start * $max-font-size - $scale-end * $min-font-size,
-    $scale-start - $scale-end
-  );
+  $relative-vw: 100 * math.div(($max-font-size - $min-font-size), ($scale-end - $scale-start));
+  $relative-font-size: math.div($scale-start * $max-font-size - $scale-end * $min-font-size,
+      $scale-start - $scale-end );
 
   // To make the font sizes more accessible, convert into rem (divide by 16)
   $min-font-size: math.div($min-font-size, 16);
   $max-font-size: math.div($max-font-size, 16);
   $relative-font-size: math.div($relative-font-size, 16);
 
-  @return clamp(
-    #{$min-font-size}rem,
+  @return clamp(#{$min-font-size}rem,
     #{$relative-vw}vw + #{$relative-font-size}rem,
-    #{$max-font-size}rem
-  );
+    #{$max-font-size}rem);
 }
 
 :root {
@@ -71,12 +66,8 @@ $viewport: (
 
 @mixin align-to-baseline($size, $baselines, $lines-beneath) {
   $base-line-height: calc(#{get-font-size(1)} * 1.4);
-  $baseline-shift: calc(
-    calc(calc($baselines * (#{get-font-size(1)} * 1.4)) - 1cap) / 2
-  );
-  $baseline-push: calc(
-    calc($lines-beneath * (#{get-font-size(1)} * 1.4)) - $baseline-shift
-  );
+  $baseline-shift: calc(calc(calc($baselines * (#{get-font-size(1)} * 1.4)) - 1cap) / 2);
+  $baseline-push: calc(calc($lines-beneath * (#{get-font-size(1)} * 1.4)) - $baseline-shift );
 
   & {
     line-height: calc(#{$baselines} * #{$base-line-height});
@@ -86,21 +77,23 @@ $viewport: (
 }
 
 @mixin font-weight($weight) {
-  @if $weight == light {
+  @if $weight ==light {
     & {
       font-family: neue-haas-grotesk-display, sans-serif;
       font-style: normal;
       font-weight: 400;
     }
   }
-  @if $weight == medium {
+
+  @if $weight ==medium {
     & {
       font-family: neue-haas-grotesk-display, sans-serif;
       font-style: normal;
       font-weight: 600;
     }
   }
-  @if $weight == black {
+
+  @if $weight ==black {
     & {
       font-family: neue-haas-grotesk-display, sans-serif;
       font-style: normal;

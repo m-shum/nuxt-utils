@@ -173,8 +173,6 @@ const toggleControls = () => {
     background: var(--button-inner-bg);
     border-radius: 9px;
     color: var(--text-color);
-    font-size: #{get-font-size(-1)};
-    font-weight: 600;
     height: var(--min-size);
     padding: var(--padding);
     position: relative;

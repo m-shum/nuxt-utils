@@ -8,7 +8,7 @@
 body {
   background: var(--bg-color);
   color: var(--text-color);
-  font-family: Montserrat, serif;
+  font-family: neue-haas-grotesk-display, sans-serif;
   font-size: #{get-font-size(1)};
   font-style: normal;
   @include font-weight(light);
@@ -27,17 +27,17 @@ body {
 
 // Typography //
 
-h1 {
-  font-size: #{get-font-size(4)};
-}
+// h1 {
+//   font-size: #{get-font-size(4)};
+// }
 
-h2 {
-  font-size: #{get-font-size(3)};
-}
+// h2 {
+//   font-size: #{get-font-size(3)};
+// }
 
-h3 {
-  font-size: #{get-font-size(2)};
-}
+// h3 {
+//   font-size: #{get-font-size(2)};
+// }
 
 p {
   @include align-to-baseline(1, 1, 1);
@@ -49,8 +49,36 @@ p {
   display: flex;
 }
 
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
 .flex-gap-base {
   gap: var(--grid-gutter);
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.w-auto {
+  width: auto;
+}
+
+.w-full {
+  width: 100%;
 }
 
 @media (prefers-color-scheme: dark) {
