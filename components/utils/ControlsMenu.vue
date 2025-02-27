@@ -18,6 +18,16 @@ const typeScaleOptions = [
         class="controls-content__menu"
       >
         <li>
+          <ElementsInputCheckbox type="checkbox" id="dark-mode"
+            >dark mode</ElementsInputCheckbox
+          >
+        </li>
+        <li>
+          <ElementsInputCheckbox type="checkbox" id="toggle-overlay"
+            >show overlay</ElementsInputCheckbox
+          >
+        </li>
+        <li>
           <ElementsInputNumber id="base-grid-cols"
             >grid columns</ElementsInputNumber
           >
@@ -25,11 +35,6 @@ const typeScaleOptions = [
         <li>
           <ElementsInputNumber id="base-text-cols"
             >text columns</ElementsInputNumber
-          >
-        </li>
-        <li>
-          <ElementsInputCheckbox type="checkbox" id="dark-mode"
-            >dark mode</ElementsInputCheckbox
           >
         </li>
         <li>
