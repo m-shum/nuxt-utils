@@ -19,9 +19,9 @@ onMounted(() => {
 </script>
 <template>
   <div class="dev-ui" v-if="isDevMode">
-    <ElementsRidiculousButton @click="toggleGrid"
+    <!-- <ElementsRidiculousButton @click="toggleGrid"
       >Toggle Grid</ElementsRidiculousButton
-    >
+    > -->
 
     <div v-show="showGrid">
       <span class="dev-ui__info">breakpoint – {{ breakpoint }}</span>
