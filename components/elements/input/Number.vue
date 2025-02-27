@@ -28,7 +28,7 @@ const incrementCount = (value: number) => {
         @blur="toggleFocus(false)"
     /></template>
     <template #controls>
-      <div class="input-number-controls flex flex-col">
+      <div class="input-number-controls flex">
         <button @click="incrementCount(1)"><span>+</span></button>
         <button @click="incrementCount(-1)"><span>-</span></button>
       </div>
@@ -51,18 +51,18 @@ const incrementCount = (value: number) => {
   border-left: 1px solid var(--outline-color);
 
   button {
+    aspect-ratio: 1;
     flex: 1;
+    flex-shrink: 0;
+    height: 100%;
     outline: none;
-    width: 16px;
+    padding-right: 2px;
 
-    &:first-of-type {
+    /* width: 16px; */
+
+    /* &:first-of-type {
       border-bottom: 1px solid var(--outline-color);
-    }
-
-    &:hover,
-    &:focus {
-      background: var(--input-color-focused);
-    }
+    } */
 
     span {
       line-height: 1;
