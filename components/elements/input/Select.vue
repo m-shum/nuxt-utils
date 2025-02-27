@@ -6,6 +6,7 @@ type TOption = {
 type TProps = {
   id: string
   options: TOption[] | []
+  placeholder?: string
 }
 const props = defineProps<TProps>()
 
@@ -108,7 +109,7 @@ onMounted(() => {
 <template>
   <div ref="inputContainer">
     <ElementsInput :id type="select" class="autocomplete">
-      <template #label><slot /></template>
+      <template #label><slot name="label" /></template>
       <template #input="{ toggleFocus }">
         <div @keydown="handleKeydown">
           <input
@@ -122,6 +123,7 @@ onMounted(() => {
             :id
             :name="id"
             v-model="model"
+            :placeholder
             type="number"
             class="autocomplete__input"
             @focus="toggleFocus(true)"
@@ -138,8 +140,7 @@ onMounted(() => {
                 @click.prevent="handleSelect(option.value)"
                 @keydown.enter.stop="handleSelect(option.value)"
               >
-                {{ idx }}
-                {{ option.label }}
+                <slot name="optLabel" :option />
               </li>
             </ul>
           </div>

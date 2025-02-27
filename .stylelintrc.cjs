@@ -14,5 +14,11 @@ module.exports = {
         singleQuote: true,
       },
     ],
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['export'],
+      },
+    ],
   },
 }

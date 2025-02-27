@@ -15,12 +15,12 @@ const incrementCount = (value: number) => {
 }
 </script>
 <template>
-  <ElementsInput :id type="number">
+  <ElementsInput :id type="number" class="input-number">
     <template #label><slot /></template>
     <template #input="{ toggleFocus }">
       <input
         v-model="model"
-        class="input-number"
+        class="input-number__input"
         :id
         type="number"
         :name="id"
@@ -28,7 +28,7 @@ const incrementCount = (value: number) => {
         @blur="toggleFocus(false)"
     /></template>
     <template #controls>
-      <div class="input-number-controls flex">
+      <div class="input-number__controls flex flex-col">
         <button @click="incrementCount(1)"><span>+</span></button>
         <button @click="incrementCount(-1)"><span>-</span></button>
       </div>
@@ -37,35 +37,30 @@ const incrementCount = (value: number) => {
 </template>
 <style lang="scss">
 .input-number {
-  padding: calc(#{get-font-size(-1) / 2});
-  width: 100%;
-
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    appearance: none;
-    margin: 0;
+  &__input {
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      appearance: none;
+      margin: 0;
+    }
   }
-}
 
-.input-number-controls {
-  border-left: 1px solid var(--outline-color);
+  &__controls {
+    border-left: 1px solid var(--outline-color);
 
-  button {
-    aspect-ratio: 1;
-    flex: 1;
-    flex-shrink: 0;
-    height: 100%;
-    outline: none;
-    padding-right: 2px;
+    button {
+      flex: 1;
+      outline: none;
+      padding-right: 2px;
+      width: 16px;
 
-    /* width: 16px; */
+      &:first-of-type {
+        border-bottom: 1px solid var(--outline-color);
+      }
 
-    /* &:first-of-type {
-      border-bottom: 1px solid var(--outline-color);
-    } */
-
-    span {
-      line-height: 1;
+      span {
+        line-height: 1;
+      }
     }
   }
 }

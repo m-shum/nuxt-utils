@@ -1,21 +1,32 @@
 <script setup lang="ts">
 const typeScaleOptions = [
-  { label: 'Perfect Third', value: 1.2 },
-  { label: 'Perfect Third', value: 1.2 },
-  { label: 'Perfect Third', value: 1.2 },
-  { label: 'Perfect Third', value: 1.2 },
-  { label: 'Perfect Third', value: 1.2 },
-  { label: 'Perfect Third', value: 1.2 },
+  { label: 'Minor Second', value: 1.067 },
+  { label: 'Major Second', value: 1.125 },
+  { label: 'Minor Third', value: 1.2 },
+  { label: 'Major Third', value: 1.25 },
+  { label: 'Perfect Fourth', value: 1.333 },
+  { label: 'Augmented Fourth', value: 1.414 },
+  { label: 'Perfect Fifth', value: 1.5 },
+  { label: 'Golden Ratio', value: 1.618 },
 ]
 </script>
 <template>
   <div class="controls-content flex flex-col flex-gap-base">
     <div>
-      <h2 id="menu-layout-heading">Layout</h2>
       <menu
         aria-labelledby="menu-layout-heading"
         class="controls-content__menu"
       >
+        <li>
+          <ElementsInputCheckbox type="checkbox" id="dark-mode"
+            >dark mode</ElementsInputCheckbox
+          >
+        </li>
+        <li>
+          <ElementsInputCheckbox type="checkbox" id="toggle-overlay"
+            >show overlay</ElementsInputCheckbox
+          >
+        </li>
         <li>
           <ElementsInputNumber id="base-grid-cols"
             >grid columns</ElementsInputNumber
@@ -26,18 +37,26 @@ const typeScaleOptions = [
             >text columns</ElementsInputNumber
           >
         </li>
-      </menu>
-    </div>
-    <div>
-      <h2 id="menu-typography-heading">Typography</h2>
-      <menu
-        aria-labelledby="menu-typography-heading"
-        class="controls-content__menu"
-      >
         <li>
-          <ElementsInputSelect :options="typeScaleOptions" id="type-scale"
-            >type scale</ElementsInputSelect
+          <ElementsInputNumber id="font-size"
+            >base font size</ElementsInputNumber
           >
+        </li>
+        <li>
+          <ElementsInputSelect
+            :options="typeScaleOptions"
+            placeholder="Enter value"
+            id="type-scale"
+          >
+            <template #label>type scale</template>
+            <template #optLabel="{ option }">
+              <div class="opt-label">
+                <span>{{ option.value }}</span>
+                <span>:&nbsp;</span>
+                <span>{{ option.label }}</span>
+              </div>
+            </template>
+          </ElementsInputSelect>
         </li>
         <li>
           <ElementsInputNumber id="line-height"
@@ -67,6 +86,14 @@ const typeScaleOptions = [
   &__menu {
     display: flex;
     flex-direction: column;
+
+    .opt-label {
+      span {
+        &:first-of-type {
+          font-weight: 600;
+        }
+      }
+    }
   }
 }
 </style>
