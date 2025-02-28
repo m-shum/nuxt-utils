@@ -7,10 +7,11 @@ type TProps = {
   id: string
   options: TOption[] | []
   placeholder?: string
+  type: string
 }
 const props = defineProps<TProps>()
 
-const model = defineModel<number>()
+const model = defineModel<number | string>()
 
 const isDropdownOpen = ref(false)
 const $list = useTemplateRef('list')
@@ -124,7 +125,7 @@ onMounted(() => {
             :name="id"
             v-model="model"
             :placeholder
-            type="number"
+            :type
             class="autocomplete__input"
             @focus="toggleFocus(true)"
             @blur="toggleFocus(false)"
