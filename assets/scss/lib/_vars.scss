@@ -19,7 +19,10 @@
   --grid-cols: 10;
   --margins: calc(var(--base-margin) * 2);
   --total-gutters: calc(var(--grid-gutter) * (var(--grid-cols) - 1));
-  --col-width: calc((var(--container-width) - var(--total-gutters) - var(--margins)) / var(--grid-cols)); // Omit margins if base-width excludes them
+  --col-width: calc(
+    (var(--container-width) - var(--total-gutters) - var(--margins)) /
+      var(--grid-cols)
+  ); // Omit margins if base-width excludes them
 }
 
 $viewport: (
