@@ -106,7 +106,10 @@ const defaultFontFamily = computed(() => {
           </ElementsInputSelect>
         </li>
         <li>
-          <ElementsInputNumber id="line-height" v-model="styles.lineHeightBase"
+          <ElementsInputNumber
+            id="line-height"
+            v-model="styles.lineHeightBase"
+            :step="0.1"
             >line height</ElementsInputNumber
           >
         </li>
