@@ -6,9 +6,27 @@ const toggleControls = () => {
   if (!isDevMode) return
   showControls.value = !showControls.value
 }
+
+const $target = useTemplateRef('target')
+const $button = useTemplateRef('button')
+
+const handleDocumentClick = (e: any) => {
+  if (!showControls.value) return
+  const clickedInside =
+    $target.value?.contains(e.target) || $button.value?.contains(e.target)
+  if (!clickedInside) showControls.value = false
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleDocumentClick)
+})
 </script>
 <template>
-  <button class="controls-toggle shadow background" @click="toggleControls">
+  <button
+    class="controls-toggle shadow background"
+    @click="toggleControls"
+    ref="button"
+  >
     <div class="controls-toggle__inner">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +47,11 @@ const toggleControls = () => {
       </svg>
     </div>
   </button>
-  <aside class="controls shadow" :class="{ 'controls--open': showControls }">
+  <aside
+    class="controls shadow"
+    :class="{ 'controls--open': showControls }"
+    ref="target"
+  >
     <div class="controls__inner">
       <UtilsControlsMenu class="menu" :inert="!showControls" />
     </div>
@@ -97,6 +119,7 @@ const toggleControls = () => {
       transform: rotate(180deg);
     }
 
+    /* stylelint-disable-next-line */
     .controls-toggle__inner {
       background: hsl(0deg 0% 100%);
     }
