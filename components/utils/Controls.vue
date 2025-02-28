@@ -36,166 +36,69 @@ const toggleControls = () => {
   </aside>
 </template>
 <style lang="scss">
-@property --shadow {
-  inherits: false;
-  initial-value: hsl(0deg 0% 0% / 2.5%);
-  syntax: '<color>';
-}
-@property --shadow-secondary {
-  inherits: false;
-  initial-value: hsl(0deg 0% 0% / 2.5%);
-  syntax: '<color>';
-}
-@property --button-inner-bg {
-  inherits: true;
-  initial-value: rgb(249 245 248);
-  syntax: '<color>';
-}
-@property --bg-gradient-1 {
-  inherits: false;
-  initial-value: rgb(0 200 255 / 0%);
-  syntax: '<color>';
-}
-@property --bg-gradient-2 {
-  inherits: false;
-  initial-value: rgb(175 113 255 / 0%);
-  syntax: '<color>';
-}
-@property --bg-scale {
-  inherits: false;
-  initial-value: 35%;
-  syntax: '<percentage>';
-}
-@property --bg-pos-1 {
-  inherits: false;
-  initial-value: 52% 0%;
-  syntax: '<percentage>+';
-}
-@property --bg-pos-2 {
-  inherits: false;
-  initial-value: 55% 100%;
-  syntax: '<percentage>+';
-}
-@property --bg-pos-3 {
-  inherits: false;
-  initial-value: 46% 0%;
-  syntax: '<percentage>+';
-}
-@property --bg-pos-4 {
-  inherits: false;
-  initial-value: 45% 100%;
-  syntax: '<percentage>+';
-}
-
 :root {
   --button-text: var(--text-color);
   --button-base-bg: rgb(38 38 39 / 10%);
   --padding: 8px;
   --button-size: 20px;
   --min-size: calc(var(--padding) * 2 + var(--button-size));
-}
-
-.background {
-  background: var(--button-base-bg);
-  background-image:
-    radial-gradient(
-      var(--bg-scale) var(--bg-scale) at var(--bg-pos-1),
-      var(--bg-gradient-1) 1%,
-      #0000 36%
-    ),
-    radial-gradient(
-      var(--bg-scale) var(--bg-scale) at var(--bg-pos-2),
-      var(--bg-gradient-1) 1%,
-      #0000 36%
-    ),
-    radial-gradient(
-      var(--bg-scale) var(--bg-scale) at var(--bg-pos-3),
-      var(--bg-gradient-2) 0%,
-      #0000 62%
-    ),
-    radial-gradient(
-      var(--bg-scale) var(--bg-scale) at var(--bg-pos-4),
-      var(--bg-gradient-2) 0%,
-      #0000 61%
-    );
-  background-position:
-    0 0,
-    0 0;
-  background-size: 100% 100%;
-
-  &:hover,
-  &:active,
-  &:focus {
-    --bg-gradient-1: rgb(255 104 227 / 75.3%);
-    --bg-gradient-2: rgb(252 209 64);
-    --bg-scale: 55%;
-    --bg-pos-1: 12% 0%;
-    --bg-pos-2: 85% 100%;
-    --bg-pos-3: 22% 0%;
-    --bg-pos-4: 75% 100%;
-  }
-}
-
-.shadow {
-  box-shadow:
-    0 1px 1px var(--shadow),
-    0 2px 2px var(--shadow-secondary),
-    0 4px 4px var(--shadow),
-    0 8px 8px var(--shadow-secondary),
-    0 16px 16px var(--shadow);
-
-  &:hover,
-  &:active,
-  &:focus {
-    --shadow: hsl(316deg 100% 16% / 9%);
-    --shadow-secondary: hsl(39deg 100% 30% / 7.5%);
-  }
+  --shadow-color: 23deg 43% 45%;
+  --shadow-color-2: 286deg 47% 29%;
 }
 
 .controls-toggle {
+  border: 1px solid hsl(300deg 6% 88%);
   border-radius: 10px;
+  box-shadow:
+    0 0.4px 0.5px hsl(var(--shadow-color-2) / 13%),
+    0.1px 1.2px 1.4px -0.8px hsl(var(--shadow-color-2) / 14%),
+    0.2px 1.7px 3.1px -1.5px hsl(var(--shadow-color-2) / 15%),
+    0.4px 5.4px 7.4px -2.3px hsl(var(--shadow-color) / 20%);
   cursor: pointer;
   display: block;
-  padding: 1px;
+  overflow: hidden;
   position: fixed;
   right: var(--base-margin);
+  scale: 1;
   top: var(--base-margin);
-  transition:
-    --button-inner-bg 0.15s,
-    --shadow 0.35s,
-    --shadow 0.55s,
-    --bg-gradient-1 0.55s,
-    --bg-gradient-2 0.55s,
-    --bg-pos-1 0.25s,
-    --bg-pos-2 0.35s,
-    --bg-pos-3 0.25s,
-    --bg-pos-4 0.35s,
-    --bg-scale 0.25s;
+  transition-duration: 0.25s;
+  transition-property: box-shadow, border, scale;
+  transition-timing-function: ease;
   z-index: 100;
 
   &__inner {
-    background: var(--button-inner-bg);
-    border-radius: 10px;
+    background: hsl(300deg 14% 96%);
     padding: 5px;
-    transition: --button-inner-bg 0.15s;
+    transition: background 0.25s ease;
   }
 
   svg {
     height: var(--button-size);
     opacity: 0.6;
-    transition: opacity 0.25s ease;
+    transform: rotate(0deg);
+    transition:
+      opacity 0.25s ease,
+      transform 0.35s ease-in-out;
     width: var(--button-size);
   }
 
   &:hover,
-  &:active,
   &:focus {
-    --button-inner-bg: var(--bg-color);
-
-    outline: none;
+    border: 1px solid hsl(300deg 9% 79%);
+    box-shadow:
+      0 0.4px 0.5px hsl(var(--shadow-color-2) / 10%),
+      0.1px 1.6px 1.4px -0.8px hsl(var(--shadow-color-2) / 11%),
+      0.2px 3.3px 4.1px -1.5px hsl(var(--shadow-color-2) / 12%),
+      0.4px 8.8px 7.4px -2.3px hsl(var(--shadow-color) / 17%);
+    scale: 1.05;
 
     svg {
       opacity: 1;
+      transform: rotate(180deg);
+    }
+
+    .controls-toggle__inner {
+      background: hsl(0deg 0% 100%);
     }
   }
 }
@@ -203,15 +106,18 @@ const toggleControls = () => {
 .controls {
   background: hsl(316deg 100% 16% / 12%);
   border-radius: 10px;
+  box-shadow:
+    0 0.4px 0.5px hsl(var(--shadow-color-2) / 10%),
+    0.1px 1.6px 1.4px -0.8px hsl(var(--shadow-color-2) / 11%),
+    0.2px 3.3px 4.1px -1.5px hsl(var(--shadow-color-2) / 12%),
+    0.4px 10.8px 7.4px -2.3px hsl(var(--shadow-color) / 15%);
+  font-family: neue-haas-grotesk-display, sans-serif !important;
   opacity: 0;
   padding: 1px;
   position: fixed;
   right: var(--base-margin);
   top: calc(var(--base-margin) + 35px);
   transition: opacity 0.25s ease;
-  transition:
-    --shadow 0.35s,
-    --shadow 0.55s;
   z-index: 100;
 
   &__inner {
