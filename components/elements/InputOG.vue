@@ -102,99 +102,99 @@ const incrementCount = (value: number) => {
   /* --outline-color: hsl(315deg 3% 74%); */
   --shadow-color: 286deg 6% 65%;
   --shadow-opacity: 10%;
-  --input-margin: 5px 0 #{get-font-size(-1)};
+  --input-margin: 5px 0 0.75rem;
+}
+
+&--checkbox {
+  align-items: center;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+  justify-content: start;
+  margin: var(--input-margin);
+}
+
+&--focus * {
+  --outline-color: hsl(315deg 11% 78%);
+  --shadow-opacity: 20%;
+}
+
+&__input-container {
+  --input-shadow:
+    0px 0.3px 0.3px hsl(var(--shadow-color) / var(--shadow-opacity)),
+    0px 0.6px 0.6px -0.7px hsl(var(--shadow-color) / var(--shadow-opacity)),
+    0px 1.3px 1.4px -1.4px hsl(var(--shadow-color) / var(--shadow-opacity)),
+    0px 2.6px 2.8px -2.1px hsl(var(--shadow-color) / var(--shadow-opacity)),
+    0.1px 5.2px 5.6px -2.8px hsl(var(--shadow-color) / var(--shadow-opacity));
+
+  background: var(--input-color);
+  border-radius: 5px;
+  box-shadow: var(--input-shadow);
+  margin: var(--input-margin);
+  outline: 1px solid var(--outline-color);
 
   &--checkbox {
-    align-items: center;
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 5px;
-    justify-content: start;
-    margin: var(--input-margin);
+    margin: 0;
   }
 
-  &--focus * {
-    --outline-color: hsl(315deg 11% 78%);
-    --shadow-opacity: 20%;
-  }
+  input {
+    padding: 0.3825rem;
+    width: 100%;
 
-  &__input-container {
-    --input-shadow:
-      0px 0.3px 0.3px hsl(var(--shadow-color) / var(--shadow-opacity)),
-      0px 0.6px 0.6px -0.7px hsl(var(--shadow-color) / var(--shadow-opacity)),
-      0px 1.3px 1.4px -1.4px hsl(var(--shadow-color) / var(--shadow-opacity)),
-      0px 2.6px 2.8px -2.1px hsl(var(--shadow-color) / var(--shadow-opacity)),
-      0.1px 5.2px 5.6px -2.8px hsl(var(--shadow-color) / var(--shadow-opacity));
+    &:focus {
+      outline: none;
+    }
 
-    background: var(--input-color);
-    border-radius: 5px;
-    box-shadow: var(--input-shadow);
-    margin: var(--input-margin);
-    outline: 1px solid var(--outline-color);
-
-    &--checkbox {
+    &[type='number']::-webkit-inner-spin-button,
+    &[type='number']::-webkit-outer-spin-button {
+      appearance: none;
       margin: 0;
     }
 
-    input {
-      padding: calc(#{get-font-size(-1) / 2});
-      width: 100%;
+    &[type='checkbox'] {
+      appearance: none;
+      display: grid;
+      padding: 0;
+      place-content: center;
 
-      &:focus {
-        outline: none;
+      &::before {
+        --size: 0.75rem;
+
+        background: none;
+        border-radius: 100%;
+        content: '';
+        height: var(--size);
+        scale: 0.35;
+        transition: all 0.15s ease;
+        width: var(--size);
       }
 
-      &[type='number']::-webkit-inner-spin-button,
-      &[type='number']::-webkit-outer-spin-button {
-        appearance: none;
-        margin: 0;
-      }
-
-      &[type='checkbox'] {
-        appearance: none;
-        display: grid;
-        padding: 0;
-        place-content: center;
-
-        &::before {
-          --size: #{get-font-size(-1)};
-
-          background: none;
-          border-radius: 100%;
-          content: '';
-          height: var(--size);
-          scale: 0.35;
-          transition: all 0.15s ease;
-          width: var(--size);
-        }
-
-        &:checked::before {
-          background: hsl(316deg 6% 34%);
-          scale: 0.5;
-        }
+      &:checked::before {
+        background: hsl(316deg 6% 34%);
+        scale: 0.5;
       }
     }
   }
+}
 
-  &__input-controls {
-    border-left: 1px solid var(--outline-color);
+&__input-controls {
+  border-left: 1px solid var(--outline-color);
 
-    button {
-      flex: 1;
-      outline: none;
-      width: 16px;
+  button {
+    flex: 1;
+    outline: none;
+    width: 16px;
 
-      &:first-of-type {
-        border-bottom: 1px solid var(--outline-color);
-      }
+    &:first-of-type {
+      border-bottom: 1px solid var(--outline-color);
+    }
 
-      &:hover {
-        background: var(--input-color-focused);
-      }
+    &:hover {
+      background: var(--input-color-focused);
+    }
 
-      span {
-        line-height: 1;
-      }
+    span {
+      line-height: 1;
     }
   }
 }

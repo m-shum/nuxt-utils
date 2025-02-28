@@ -29,7 +29,7 @@ const model = defineModel<boolean>()
   width: 100%;
 
   &::before {
-    --size: #{get-font-size(-1)};
+    --size: 0.75rem;
 
     background: none;
     border-radius: 100%;

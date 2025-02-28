@@ -24,6 +24,7 @@ const styles = useState<TStyles>('styles')
 .dev-ui {
   height: 100svh;
   left: 0;
+  pointer-events: none;
   position: fixed;
   top: 0;
   width: 100vw;

@@ -92,13 +92,13 @@ const styles = useState<TStyles>('styles')
 </template>
 <style lang="scss">
 .controls-content {
-  font-size: #{get-font-size(1)};
+  font-size: 1rem;
   font-weight: 500;
-  padding: var(--base-line-height);
+  padding: 1.25rem 0.75rem;
   width: 100%;
 
   label {
-    font-size: #{get-font-size(-1)};
+    font-size: 0.85rem;
   }
 
   &__menu {

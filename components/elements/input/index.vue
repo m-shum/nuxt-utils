@@ -66,7 +66,7 @@ const toggleFocus = (value: boolean) => {
 .input {
   --shadow-color: 286deg 6% 65%;
   --shadow-opacity: 10%;
-  --input-margin: 5px 0 #{get-font-size(-1)};
+  --input-margin: 5px 0 0.75rem;
   --input-border-radius: 5px;
 
   &--checkbox {
@@ -99,7 +99,7 @@ const toggleFocus = (value: boolean) => {
 
     input,
     select {
-      padding: calc(#{get-font-size(-1) / 2});
+      padding: calc(0.75rem / 2);
       width: 100%;
 
       &:focus {
