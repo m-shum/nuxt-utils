@@ -113,7 +113,7 @@ onMounted(() => {
     <ElementsInput :id type="select" class="autocomplete">
       <template #label><slot name="label" /></template>
       <template #input="{ toggleFocus }">
-        <div @keydown="handleKeydown">
+        <div @keydown="handleKeydown" :style="{ flex: '1' }">
           <input
             autocapitalize="none"
             autocomplete="off"
