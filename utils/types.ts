@@ -10,6 +10,7 @@ export type TStyles = {
   minBaseFontSize: number
   maxBaseFontSize: number
   alignToBaseline: boolean
+  fontFamilies: null | string[]
 }
 
 export type TVars = {

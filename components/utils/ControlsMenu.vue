@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const styles = useState<TStyles>('styles')
+
 const typeScaleOptions = [
   { label: 'Minor Second', value: 1.067 },
   { label: 'Major Second', value: 1.125 },
@@ -9,8 +11,19 @@ const typeScaleOptions = [
   { label: 'Perfect Fifth', value: 1.5 },
   { label: 'Golden Ratio', value: 1.618 },
 ]
+const fontFamilyOptions = computed(() =>
+  styles.value?.fontFamilies?.map((family) => {
+    console.log(family)
+    return {
+      label: `${family}`,
+      value: `${family}`,
+    }
+  })
+)
 
-const styles = useState<TStyles>('styles')
+const defaultFontFamily = computed(() => {
+  styles.value?.fontFamily
+})
 </script>
 <template>
   <div v-if="styles" class="controls-content flex flex-col flex-gap-base">
@@ -46,6 +59,22 @@ const styles = useState<TStyles>('styles')
           >
         </li>
         <li>
+          <ElementsInputSelect
+            :options="fontFamilyOptions || []"
+            type="text"
+            placeholder="Enter value"
+            id="font-family"
+            v-model="styles.fontFamily"
+          >
+            <template #label>font family</template>
+            <template #optLabel="{ option }">
+              <div class="opt-label">
+                <span>{{ option.label }}</span>
+              </div>
+            </template>
+          </ElementsInputSelect>
+        </li>
+        <li>
           <ElementsInputNumber
             id="min-font-size"
             v-model="styles.minBaseFontSize"
@@ -62,6 +91,7 @@ const styles = useState<TStyles>('styles')
         <li>
           <ElementsInputSelect
             :options="typeScaleOptions"
+            type="number"
             placeholder="Enter value"
             id="type-scale"
             v-model="styles.typeScale"

@@ -36,7 +36,7 @@ const getVars = (computedStyle: CSSStyleDeclaration) => {
   )
 }
 
-const getFontSize = (value: number, magnitude: number, vars: TVars) => {
+const getLoadedFontsize = (value: number, magnitude: number, vars: TVars) => {
   const styles = useState<TStyles>('styles')
   const { minBaseFontSize, maxBaseFontSize } = styles.value
   const { fluidTypeStart, fluidTypeStop } = vars
@@ -70,16 +70,16 @@ const setFontSizes = (vars: TVars) => {
   Array.from(Array(variations).keys()).forEach((variation) => {
     document.documentElement.style.setProperty(
       `--text-${variations - variation}`,
-      getFontSize(variation, variation, vars)
+      getLoadedFontsize(variation, variation, vars)
     )
   })
   document.documentElement.style.setProperty(
     '--text-p',
-    getFontSize(0, 0, vars)
+    getLoadedFontsize(0, 0, vars)
   )
   document.documentElement.style.setProperty(
     '--text-small',
-    getFontSize(-1, 1, vars)
+    getLoadedFontsize(-1, 1, vars)
   )
 }
 
@@ -119,10 +119,12 @@ const setDarkMode = () => {
   )
 }
 
-const getFonts = () => {
+const getLoadedFonts = (): string[] => {
   const fontsArr = Array.from(document.fonts)
-  const fontFamilies = fontsArr.reduce<string[]>((acc, current, idx, arr) => {
-    if (!arr.includes(current)) acc.push(current.family)
+  const fontFamilies = fontsArr?.reduce<string[]>((acc, current, idx, arr) => {
+    console.log(current.family)
+    const family = `${current.family}`
+    if (!acc.includes(family)) acc.push(family)
     return acc
   }, [])
   return fontFamilies
@@ -132,14 +134,14 @@ const setFont = () => {
   const styles = useState<TStyles>('styles')
   document.documentElement.style.setProperty(
     '--font-family',
-    styles.value.fontFamily
+    `${styles.value.fontFamily}`
   )
 }
 
 export const useStyles = () => {
   const vars = ref<TVars | null>(null)
 
-  const styles = useState('styles', () => ({
+  const styles = useState<TStyles>('styles', () => ({
     gridCols: 1,
     isDark: false,
     showOverlay: true,
@@ -151,17 +153,18 @@ export const useStyles = () => {
     maxBaseFontSize: 20,
     alignToBaseline: false,
     fontFamily: 'Arial, sans-serif',
+    fontFamilies: null,
   }))
 
   onMounted(() => {
     const computedStyle = window.getComputedStyle(document.documentElement)
     vars.value = getVars(computedStyle) as TVars
-
     styles.value.minBaseFontSize = vars.value.textBaseMin as number
     styles.value.maxBaseFontSize = vars.value.textBaseMax as number
     styles.value.textColWidth = vars.value.textColWidth as number
     styles.value.gridCols = vars.value.gridCols as number
-    styles.value.fontFamily = vars.value.fontFamily as string
+    styles.value.fontFamily = `${vars.value.fontFamily}` as string
+    styles.value.fontFamilies = getLoadedFonts()
 
     setFontSizes(vars.value)
     setTextColWidth(vars.value)
@@ -175,10 +178,11 @@ export const useStyles = () => {
       if (vars.value) {
         setFontSizes(vars.value)
         setTextColWidth(vars.value)
-        setLineHeightBase()
-        setGridCols()
-        setDarkMode()
       }
+      setLineHeightBase()
+      setGridCols()
+      setDarkMode()
+      setFont()
     },
     { deep: true }
   )
