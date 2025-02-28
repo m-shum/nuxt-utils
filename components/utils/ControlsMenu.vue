@@ -62,15 +62,14 @@ const defaultFontFamily = computed(() => {
           <ElementsInputSelect
             :options="fontFamilyOptions || []"
             type="text"
+            :readonly="true"
             placeholder="Enter value"
             id="font-family"
             v-model="styles.fontFamily"
           >
             <template #label>font family</template>
             <template #optLabel="{ option }">
-              <div class="opt-label">
-                <span>{{ option.label }}</span>
-              </div>
+              <span>{{ option.label }}</span>
             </template>
           </ElementsInputSelect>
         </li>
