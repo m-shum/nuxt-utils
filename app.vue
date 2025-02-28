@@ -1,5 +1,6 @@
 <script setup lang="ts">
 useBreakpoints()
+useStyles()
 </script>
 <template>
   <UtilsGrid />

@@ -62,12 +62,11 @@ const getFontSize = (value: number, magnitude: number, vars: TVars) => {
   let minFontSize = textBaseMin
   let maxFontSize = textBaseMax
 
-  for (let i = 1; i < magnitude; i++) {
-    if (value === -1) {
+  for (let i = 0; i < magnitude; i++) {
+    if (value < 0) {
       minFontSize = minFontSize / styles.value.typeScale
       maxFontSize = maxFontSize / styles.value.typeScale
-    }
-    if (value > 1) {
+    } else {
       minFontSize = minFontSize * styles.value.typeScale
       maxFontSize = maxFontSize * styles.value.typeScale
     }
@@ -85,15 +84,27 @@ const getFontSize = (value: number, magnitude: number, vars: TVars) => {
 const generateFontSizes = (vars: TVars) => {
   const styles = useState<TStyles>('styles')
   const variations = 6 // where 0 is the base
-  const fontsizes = Array(variations)
-    .fill(null)
-    .reduce((obj, variation) => {
-      obj[`--text-${variation}`] = getFontSize(variation, variation, vars)
-    }, {})
+  const fontsizes = Array.from(Array(variations).keys()).reduce<{
+    [key: string]: string
+  }>((obj, variation) => {
+    obj[`--text-${variations - variation}`] = getFontSize(
+      variation,
+      variation,
+      vars
+    )
+    return obj
+  }, {})
+
   fontsizes['--text-small'] = getFontSize(-1, 1, vars)
+  fontsizes['--text-p'] = getFontSize(0, 0, vars)
+  console.log(fontsizes)
 }
+
 export const useStyles = () => {
-  const computedStyle = window.getComputedStyle(document.documentElement)
-  const vars = getVars(computedStyle)
-  const styles = useState('styles', () => defaults)
+  onMounted(() => {
+    const computedStyle = window.getComputedStyle(document.documentElement)
+    const vars = getVars(computedStyle)
+    const styles = useState('styles', () => defaults)
+    generateFontSizes(vars)
+  })
 }
