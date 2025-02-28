@@ -1,16 +1,24 @@
 :root {
-  --bg-color: white;
-  --text-color: black;
-  --base-margin: calc(var(--base-line-height) * 2);
-  --container-width: 100vw; // Width of page container inc margins
-  --grid-cols: 1;
-  --grid-gutter: 1rem;
+  --bg-color-light: white;
+  --text-color-light: black;
+  --bg-color-dark: black;
+  --text-color-dark: white;
+  --bg-color: var(--bg-color-light);
+  --text-color: var(--text-color-light);
+  --line-height: calc(var(--text-p) * var(--line-height-base));
   --text-base-min: 1rem;
   --text-base-max: 1.25rem;
-  --line-height: 1.4;
-  --margin: 1rem;
+  --line-height-base: 1.4;
+  --text-col-width: 54ch;
   --fluid-type-start: 768px;
   --fluid-type-stop: 1599px;
+  --container-width: 100vw; // Width of page container inc margins
+  --base-margin: calc(var(--line-height) * 2);
+  --grid-gutter: var(--line-height);
+  --grid-cols: 10;
+  --margins: calc(var(--base-margin) * 2);
+  --total-gutters: calc(var(--grid-gutter) * (var(--grid-cols) - 1));
+  --col-width: calc((var(--container-width) - var(--total-gutters) - var(--margins)) / var(--grid-cols)); // Omit margins if base-width excludes them
 }
 
 $viewport: (
@@ -20,8 +28,8 @@ $viewport: (
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: black;
-    --text-color: white;
+    --bg-color: var(--bg-color-dark);
+    --text-color: var(--bg-color-light);
     --input-outline-rgb: 222, 239, 241;
   }
 }

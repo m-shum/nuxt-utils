@@ -1,0 +1,56 @@
+@use 'sass:math';
+@use 'sass:map';
+@use './breakpoints.scss' as *;
+@use './vars.scss' as *;
+
+// Grid //
+@mixin get-cols($cols, $property) {
+    & {
+        #{$property}: calc($cols * var(--col-width) + (($cols - 1) * var(--grid-gutter)));
+    }
+}
+
+// Typography //
+@mixin get-line-height($size) {
+    & {
+        line-height: calc(var(--text-#{$size}) * var(--line-height-base));
+    }
+}
+
+@mixin font-weight($weight) {
+    @if $weight ==light {
+        & {
+            font-family: neue-haas-grotesk-display, sans-serif;
+            font-style: normal;
+            font-weight: 400;
+        }
+    }
+
+    @if $weight ==medium {
+        & {
+            font-family: neue-haas-grotesk-display, sans-serif;
+            font-style: normal;
+            font-weight: 600;
+        }
+    }
+
+    @if $weight ==black {
+        & {
+            font-family: neue-haas-grotesk-display, sans-serif;
+            font-style: normal;
+            font-weight: 900;
+        }
+    }
+}
+
+@mixin align-to-baseline($size, $baselines, $lines-beneath) {
+    // $base-line-height: calc(#{get-font-size(1)} * 1.4);
+    // $baseline-shift: calc(calc(calc($baselines * (#{get-font-size(1)} * 1.4)) - 1cap) / 2);
+    // $baseline-push: calc(calc($lines-beneath * (#{get-font-size(1)} * 1.4)) - $baseline-shift );
+
+    // & {
+    //   line-height: calc(#{$baselines} * #{$base-line-height});
+    //   margin-bottom: $baseline-push;
+    //   padding-top: $baseline-shift;
+    // }
+}
