@@ -5,10 +5,11 @@
   --text-color-dark: white;
   --bg-color: var(--bg-color-light);
   --text-color: var(--text-color-light);
-  --line-height: calc(var(--text-p) * var(--line-height-base));
+  --font-family: neue-haas-grotesk-display, sans-serif;
   --text-base-min: 1rem;
   --text-base-max: 1.25rem;
   --line-height-base: 1.4;
+  --line-height: calc(var(--text-p) * var(--line-height-base));
   --text-col-width: 54ch;
   --fluid-type-start: 768px;
   --fluid-type-stop: 1599px;

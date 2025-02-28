@@ -8,7 +8,7 @@
 body {
   background: var(--bg-color);
   color: var(--text-color);
-  font-family: neue-haas-grotesk-display, sans-serif;
+  font-family: var(--font-family);
   font-size: #{get-font-size(1)};
   font-style: normal;
   @include font-weight(light);
