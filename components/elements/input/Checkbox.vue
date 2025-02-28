@@ -3,7 +3,7 @@ type TProps = {
   id: string
 }
 defineProps<TProps>()
-const model = defineModel<number>()
+const model = defineModel<boolean>()
 </script>
 <template>
   <ElementsInput :id type="checkbox">
