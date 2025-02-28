@@ -4,7 +4,7 @@ const isDevMode = import.meta.dev
 const breakpoint = useState('breakpoint')
 const gridCols = useState('gridCols')
 
-const { showOverlay } = useState('styles')
+const styles = useState<TStyles>('styles')
 </script>
 <template>
   <div class="dev-ui" v-if="isDevMode">
@@ -12,10 +12,10 @@ const { showOverlay } = useState('styles')
       >Toggle Grid</ElementsRidiculousButton
     > -->
 
-    <div v-show="showOverlay">
+    <div v-show="styles.showOverlay">
       <span class="dev-ui__info">breakpoint – {{ breakpoint }}</span>
       <div class="flex dev-ui__grid">
-        <div v-for="col in gridCols" class="dev-ui__grid__col" />
+        <div v-for="col in styles.gridCols" class="dev-ui__grid__col" />
       </div>
     </div>
   </div>
