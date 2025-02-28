@@ -1,52 +1,27 @@
-type TStyles = {
-  gridCols: number
-  isDark: boolean
-  showOverlay: boolean
-  textCols: number
-  lineHeight: number
-  typeScale: number
-  baseFontSize: number
-  alignToBaseline: boolean
-}
-
-type TVars = Record<string, number>
-
-const defaults: TStyles = {
-  gridCols: 1,
-  isDark: false,
-  showOverlay: true,
-  textCols: 1,
-  lineHeight: 1.4,
-  typeScale: 1.25,
-  baseFontSize: 16,
-  alignToBaseline: false,
-}
-
-const setFontSizes = () => {}
-const setLineHeight = () => {}
-const setGridValues = () => {}
-const setDarkMode = () => {}
-
 const getVars = (computedStyle: CSSStyleDeclaration) => {
   const textBaseMin = computedStyle.getPropertyValue('--text-base-min')
   const textBaseMax = computedStyle.getPropertyValue('--text-base-max')
-  const lineHeight = computedStyle.getPropertyValue('--line-height')
+  const textColWidth = computedStyle.getPropertyValue('--text-col-width')
+  const lineHeightBase = computedStyle.getPropertyValue('--line-height-base')
   const fluidTypeStart = computedStyle.getPropertyValue('--fluid-type-start')
   const fluidTypeStop = computedStyle.getPropertyValue('--fluid-type-stop')
+  const gridCols = computedStyle.getPropertyValue('--grid-cols')
 
   const vars = {
     textBaseMin,
     textBaseMax,
-    lineHeight,
+    textColWidth,
+    lineHeightBase,
     fluidTypeStart,
     fluidTypeStop,
+    gridCols,
   }
 
   return Object.entries(vars).reduce<Record<string, number>>(
     (obj, [key, val]) => {
-      const unit = val.replace(/\d+/gm, '')
-      let value = Number(val.replace(/\D+/gm, ''))
-      if (unit === 'rem') value = value * 16 // turn everything into pixel values
+      const unit = val.replace(/[^a-z]+/gm, '')
+      let value = Number(val.replace(/[a-z]+/gm, ''))
+      if (unit === 'rem') value = value * 16 // turn everything into pixel values for font size calculations
       obj[key] = value
 
       return obj
@@ -57,10 +32,11 @@ const getVars = (computedStyle: CSSStyleDeclaration) => {
 
 const getFontSize = (value: number, magnitude: number, vars: TVars) => {
   const styles = useState<TStyles>('styles')
-  const { textBaseMin, textBaseMax, fluidTypeStart, fluidTypeStop } = vars
+  const { minBaseFontSize, maxBaseFontSize } = styles.value
+  const { fluidTypeStart, fluidTypeStop } = vars
 
-  let minFontSize = textBaseMin
-  let maxFontSize = textBaseMax
+  let minFontSize = minBaseFontSize
+  let maxFontSize = maxBaseFontSize
 
   for (let i = 0; i < magnitude; i++) {
     if (value < 0) {
@@ -74,6 +50,7 @@ const getFontSize = (value: number, magnitude: number, vars: TVars) => {
 
   const relativeVw =
     100 * ((maxFontSize - minFontSize) / (fluidTypeStop - fluidTypeStart))
+
   const relativeFontSize =
     (fluidTypeStart * maxFontSize - fluidTypeStop * minFontSize) /
     (fluidTypeStart - fluidTypeStop)
@@ -81,30 +58,101 @@ const getFontSize = (value: number, magnitude: number, vars: TVars) => {
   return `clamp(${minFontSize / 16}rem, ${relativeVw}vw + ${relativeFontSize / 16}rem, ${maxFontSize / 16}rem)`
 }
 
-const generateFontSizes = (vars: TVars) => {
-  const styles = useState<TStyles>('styles')
+const setFontSizes = (vars: TVars) => {
   const variations = 6 // where 0 is the base
-  const fontsizes = Array.from(Array(variations).keys()).reduce<{
-    [key: string]: string
-  }>((obj, variation) => {
-    obj[`--text-${variations - variation}`] = getFontSize(
-      variation,
-      variation,
-      vars
-    )
-    return obj
-  }, {})
 
-  fontsizes['--text-small'] = getFontSize(-1, 1, vars)
-  fontsizes['--text-p'] = getFontSize(0, 0, vars)
-  console.log(fontsizes)
+  Array.from(Array(variations).keys()).forEach((variation) => {
+    document.documentElement.style.setProperty(
+      `--text-${variations - variation}`,
+      getFontSize(variation, variation, vars)
+    )
+  })
+  document.documentElement.style.setProperty(
+    '--text-p',
+    getFontSize(0, 0, vars)
+  )
+  document.documentElement.style.setProperty(
+    '--text-small',
+    getFontSize(-1, 1, vars)
+  )
+}
+
+const setTextColWidth = (vars: TVars) => {
+  const styles = useState<TStyles>('styles')
+  document.documentElement.style.setProperty(
+    '--text-col-width',
+    `${styles.value.textColWidth}ch`
+  )
+}
+
+const setLineHeightBase = () => {
+  const styles = useState<TStyles>('styles')
+  document.documentElement.style.setProperty(
+    '--line-height-base',
+    `${styles.value.lineHeightBase}`
+  )
+}
+
+const setGridCols = () => {
+  const styles = useState<TStyles>('styles')
+  document.documentElement.style.setProperty(
+    '--grid-cols',
+    `${styles.value.gridCols}`
+  )
+}
+
+const setDarkMode = () => {
+  const styles = useState<TStyles>('styles')
+  document.documentElement.style.setProperty(
+    '--bg-color',
+    styles.value.isDark ? 'var(--bg-color-dark)' : 'var(--bg-color-light)'
+  )
+  document.documentElement.style.setProperty(
+    '--text-color',
+    styles.value.isDark ? 'var(--text-color-dark)' : 'var(--text-color-light)'
+  )
 }
 
 export const useStyles = () => {
+  const vars = ref<TVars | null>(null)
+
+  const styles = useState('styles', () => ({
+    gridCols: 1,
+    isDark: false,
+    showOverlay: true,
+    textCols: 1,
+    textColWidth: 64,
+    lineHeightBase: 1.4,
+    typeScale: 1.25,
+    minBaseFontSize: 16,
+    maxBaseFontSize: 20,
+    alignToBaseline: false,
+  }))
+
   onMounted(() => {
     const computedStyle = window.getComputedStyle(document.documentElement)
-    const vars = getVars(computedStyle)
-    const styles = useState('styles', () => defaults)
-    generateFontSizes(vars)
+    vars.value = getVars(computedStyle)
+
+    styles.value.minBaseFontSize = vars.value.textBaseMin
+    styles.value.maxBaseFontSize = vars.value.textBaseMax
+    styles.value.textColWidth = vars.value.textColWidth
+    styles.value.gridCols = vars.value.gridCols
+
+    setFontSizes(vars.value)
+    setTextColWidth(vars.value)
   })
+
+  watch(
+    styles,
+    () => {
+      if (vars.value) {
+        setFontSizes(vars.value)
+        setTextColWidth(vars.value)
+        setLineHeightBase()
+        setGridCols()
+        setDarkMode()
+      }
+    },
+    { deep: true }
+  )
 }
