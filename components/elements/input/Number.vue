@@ -2,16 +2,17 @@
 type TProps = {
   id: string
   maxVal?: number
+  step?: number
 }
-const props = defineProps<TProps>()
+const props = withDefaults(defineProps<TProps>(), { step: 1 })
 
 const model = defineModel<number>({ default: 0 })
 
 const incrementCount = (value: number) => {
   if (value < 0 && model.value === 0) return
   if (value > 0 && model.value === props.maxVal) return
-  if (value > 0) model.value++
-  if (value < 0) model.value--
+  if (value > 0) model.value = model.value + 1 * props.step
+  if (value < 0) model.value = model.value - 1 * props.step
 }
 </script>
 <template>
@@ -22,6 +23,7 @@ const incrementCount = (value: number) => {
         v-model="model"
         class="input-number__input"
         :id
+        :step
         type="number"
         :name="id"
         @focus="toggleFocus(true)"
