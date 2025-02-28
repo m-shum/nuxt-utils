@@ -12,9 +12,26 @@
 
 // Typography //
 @mixin get-line-height($size) {
-    & {
-        line-height: calc(var(--text-#{$size}) * var(--line-height-base));
+    @if $size =='p' or $size ==6 {
+        & {
+            line-height: calc(var(--text-#{$size}) * var(--line-height-base));
+        }
     }
+
+    //max line-height-multiplier = 1.4 at size 6, when size = 1, multiplier = 1,
+    // var(--line-height-base) - 1 = scale
+    // scale / size = additive
+    // res = var(--line-height-base) - (var(--line-height-base) - 1 / #{$size})
+
+    @else {
+        & {
+            line-height: calc(var(--text-#{$size}) * (var(--line-height-base) - ((var(--line-height-base) - 1) / #{$size})));
+        }
+    }
+}
+
+@function use-line-height($size) {
+    @return calc(var(--text-#{$size}) * var(--line-height-base));
 }
 
 @mixin font-weight($weight) {
