@@ -7,9 +7,10 @@ type TProps = {
   id: string
   options: TOption[] | []
   placeholder?: string
+  readonly?: boolean
   type: string
 }
-const props = defineProps<TProps>()
+const props = withDefaults(defineProps<TProps>(), { readonly: false })
 
 const model = defineModel<number | string>()
 
@@ -122,6 +123,7 @@ onMounted(() => {
             aria-haspopup="listbox"
             ref="input"
             :id
+            :readonly
             :name="id"
             v-model="model"
             :placeholder
@@ -177,7 +179,7 @@ onMounted(() => {
 <style lang="scss">
 .autocomplete {
   &__input {
-    padding: calc(#{get-font-size(-1) / 2});
+    padding: calc(0.75rem / 2);
     width: 100%;
 
     &::-webkit-inner-spin-button,
@@ -200,7 +202,7 @@ onMounted(() => {
 
     ul {
       li {
-        padding: calc(#{get-font-size(-1) / 1.5});
+        padding: calc(0.75rem / 1.5);
 
         &:not(:last-of-type) {
           border-bottom: 1px solid hsl(320deg 5% 88%);
