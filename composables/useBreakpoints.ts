@@ -14,7 +14,7 @@ export const useBreakpoints = () => {
     if (hasTouch !== isTouchscreen.value) isTouchscreen.value = hasTouch
   }
   function getGridCols(computedStyle: CSSStyleDeclaration) {
-    gridCols.value = +computedStyle.getPropertyValue('--grid-cols')
+    gridCols.value = Number(computedStyle.getPropertyValue('--grid-cols'))
   }
 
   const getViewportProperties = () => {

@@ -134,7 +134,7 @@ const setFont = () => {
   const styles = useState<TStyles>('styles')
   document.documentElement.style.setProperty(
     '--font-family',
-    `${styles.value.fontFamily}`
+    styles.value.fontFamily
   )
 }
 
@@ -163,7 +163,7 @@ export const useStyles = () => {
     styles.value.maxBaseFontSize = vars.value.textBaseMax as number
     styles.value.textColWidth = vars.value.textColWidth as number
     styles.value.gridCols = vars.value.gridCols as number
-    styles.value.fontFamily = `${vars.value.fontFamily}` as string
+    styles.value.fontFamily = vars.value.fontFamily as string
     styles.value.fontFamilies = getLoadedFonts()
 
     setFontSizes(vars.value)
