@@ -1,4 +1,5 @@
 const getVars = (computedStyle: CSSStyleDeclaration) => {
+  const fontFamily = computedStyle.getPropertyValue('--font-family')
   const textBaseMin = computedStyle.getPropertyValue('--text-base-min')
   const textBaseMax = computedStyle.getPropertyValue('--text-base-max')
   const textColWidth = computedStyle.getPropertyValue('--text-col-width')
@@ -8,6 +9,7 @@ const getVars = (computedStyle: CSSStyleDeclaration) => {
   const gridCols = computedStyle.getPropertyValue('--grid-cols')
 
   const vars = {
+    fontFamily,
     textBaseMin,
     textBaseMax,
     textColWidth,
@@ -17,8 +19,12 @@ const getVars = (computedStyle: CSSStyleDeclaration) => {
     gridCols,
   }
 
-  return Object.entries(vars).reduce<Record<string, number>>(
+  return Object.entries(vars).reduce<TVars | Record<string, string | number>>(
     (obj, [key, val]) => {
+      if (key === 'fontFamily') {
+        obj[key] = val
+        return obj
+      }
       const unit = val.replace(/[^a-z]+/gm, '')
       let value = Number(val.replace(/[a-z]+/gm, ''))
       if (unit === 'rem') value = value * 16 // turn everything into pixel values for font size calculations
@@ -113,6 +119,23 @@ const setDarkMode = () => {
   )
 }
 
+const getFonts = () => {
+  const fontsArr = Array.from(document.fonts)
+  const fontFamilies = fontsArr.reduce<string[]>((acc, current, idx, arr) => {
+    if (!arr.includes(current)) acc.push(current.family)
+    return acc
+  }, [])
+  return fontFamilies
+}
+
+const setFont = () => {
+  const styles = useState<TStyles>('styles')
+  document.documentElement.style.setProperty(
+    '--font-family',
+    styles.value.fontFamily
+  )
+}
+
 export const useStyles = () => {
   const vars = ref<TVars | null>(null)
 
@@ -127,19 +150,23 @@ export const useStyles = () => {
     minBaseFontSize: 16,
     maxBaseFontSize: 20,
     alignToBaseline: false,
+    fontFamily: 'Arial, sans-serif',
   }))
 
   onMounted(() => {
     const computedStyle = window.getComputedStyle(document.documentElement)
-    vars.value = getVars(computedStyle)
+    vars.value = getVars(computedStyle) as TVars
 
-    styles.value.minBaseFontSize = vars.value.textBaseMin
-    styles.value.maxBaseFontSize = vars.value.textBaseMax
-    styles.value.textColWidth = vars.value.textColWidth
-    styles.value.gridCols = vars.value.gridCols
+    styles.value.minBaseFontSize = vars.value.textBaseMin as number
+    styles.value.maxBaseFontSize = vars.value.textBaseMax as number
+    styles.value.textColWidth = vars.value.textColWidth as number
+    styles.value.gridCols = vars.value.gridCols as number
+    styles.value.fontFamily = vars.value.fontFamily as string
 
     setFontSizes(vars.value)
     setTextColWidth(vars.value)
+
+    console.log(Array.from(document.fonts))
   })
 
   watch(

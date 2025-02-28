@@ -6,9 +6,20 @@ export type TStyles = {
   textColWidth: number
   lineHeightBase: number
   typeScale: number
+  fontFamily: string
   minBaseFontSize: number
   maxBaseFontSize: number
   alignToBaseline: boolean
 }
 
-export type TVars = Record<string, number>
+export type TVars = {
+  fontFamily: string
+  textBaseMin: number
+  textBaseMax: number
+  textColWidth: number
+  lineHeightBase: number
+  fluidTypeStart: number
+  fluidTypeStop: number
+  gridCols: number
+  [key: string]: string | number
+}
