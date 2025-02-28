@@ -30,6 +30,16 @@
     }
 }
 
+@function get-max-width($size) {
+    @if $size =='p' or $size ==6 {
+        @return var(--text-col-width);
+    }
+
+    @else {
+        @return calc(var(--text-col-width) * (1 + (1 / #{$size})));
+    }
+}
+
 @function use-line-height($size) {
     @return calc(var(--text-#{$size}) * var(--line-height-base));
 }
