@@ -4,8 +4,19 @@
   --base-margin: calc(var(--base-line-height) * 2);
   --container-width: 100vw; // Width of page container inc margins
   --grid-cols: 1;
-  --grid-gutter: var(--base-line-height);
+  --grid-gutter: 1rem;
+  --text-base-min: 1rem;
+  --text-base-max: 1.25rem;
+  --line-height: 1.4;
+  --margin: 1rem;
+  --fluid-type-start: 768px;
+  --fluid-type-stop: 1599px;
 }
+
+$viewport: (
+  'min': 768,
+  'max': 1599,
+);
 
 @media (prefers-color-scheme: dark) {
   :root {

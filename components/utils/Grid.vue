@@ -4,18 +4,7 @@ const isDevMode = import.meta.dev
 const breakpoint = useState('breakpoint')
 const gridCols = useState('gridCols')
 
-const showGrid = ref(false)
-const toggleGrid = () => {
-  if (!isDevMode) return
-  showGrid.value = !showGrid.value
-  showGrid.value
-    ? document.body.classList.add('dev-grid')
-    : document.body.classList.remove('dev-grid')
-}
-
-onMounted(() => {
-  toggleGrid()
-})
+const { showOverlay } = useState('styles')
 </script>
 <template>
   <div class="dev-ui" v-if="isDevMode">
@@ -23,7 +12,7 @@ onMounted(() => {
       >Toggle Grid</ElementsRidiculousButton
     > -->
 
-    <div v-show="showGrid">
+    <div v-show="showOverlay">
       <span class="dev-ui__info">breakpoint – {{ breakpoint }}</span>
       <div class="flex dev-ui__grid">
         <div v-for="col in gridCols" class="dev-ui__grid__col" />

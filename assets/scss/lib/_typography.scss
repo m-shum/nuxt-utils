@@ -57,6 +57,7 @@ $viewport: (
 }
 
 :root {
+  --text-base-size: 1rem;
   --body-copy: #{get-font-size(1)};
   --text-h3: #{get-font-size(2)};
   --text-h2: #{get-font-size(3)};
