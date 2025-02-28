@@ -4,7 +4,7 @@
     <div class="body-copy">
       <div>
         <h1>Universal Declaration of Human Rights</h1>
-        <h4>
+        <h5>
           The Universal Declaration of Human Rights (UDHR) is a milestone
           document in the history of human rights. Drafted by representatives
           with different legal and cultural backgrounds from all regions of the
@@ -17,11 +17,11 @@
           the way for, the adoption of more than seventy human rights treaties,
           applied today on a permanent basis at global and regional levels (all
           containing references to it in their preambles).
-        </h4>
+        </h5>
       </div>
 
       <div>
-        <h2>Preamble</h2>
+        <h4>Preamble</h4>
         <p>
           Whereas recognition of the inherent dignity and of the equal and
           inalienable rights of all members of the human family is the
@@ -57,8 +57,9 @@
       </div>
 
       <div class="articles flex flex-col">
+        <h3>Articles</h3>
         <div>
-          <h3>Article 1</h3>
+          <h4>Article 1</h4>
           <p>
             All human beings are born free and equal in dignity and rights. They
             are endowed with reason and conscience and should act towards one
@@ -66,7 +67,7 @@
           </p>
         </div>
         <div>
-          <h3>Article 2</h3>
+          <h4>Article 2</h4>
           <p>
             Everyone is entitled to all the rights and freedoms set forth in
             this Declaration, without distinction of any kind, such as race,
@@ -80,25 +81,25 @@
           </p>
         </div>
         <div>
-          <h3>Article 3</h3>
+          <h4>Article 3</h4>
           <p>Everyone has the right to life, liberty and security of person.</p>
         </div>
         <div>
-          <h3>Article 4</h3>
+          <h4>Article 4</h4>
           <p>
             No one shall be held in slavery or servitude; slavery and the slave
             trade shall be prohibited in all their forms.
           </p>
         </div>
         <div>
-          <h3>Article 5</h3>
+          <h4>Article 5</h4>
           <p>
             No one shall be subjected to torture or to cruel, inhuman or
             degrading treatment or punishment.
           </p>
         </div>
         <div>
-          <h3>Article 6</h3>
+          <h4>Article 6</h4>
           <p>
             Everyone has the right to recognition everywhere as a person before
             the law.
@@ -164,11 +165,12 @@
   }
 
   h4 {
-    /* column-gap: var(--grid-gutter);
-    columns: 2;
-    margin: #{use-line-height(4)} 0; */
+    margin-top: #{use-line-height(4)};
+    max-width: #{get-max-width(4)};
+  }
 
-    @include get-cols(6, max-width);
+  h5 {
+    max-width: #{get-max-width(5)};
   }
 
   h1,
@@ -181,7 +183,7 @@
   p {
     font-size: var(--text-p);
     margin: #{use-line-height('p') 0};
-    width: var(--text-col-width);
+    max-width: var(--text-col-width);
   }
 
   dl {
