@@ -1,5 +1,7 @@
 const getVars = (computedStyle: CSSStyleDeclaration) => {
   const fontFamily = computedStyle.getPropertyValue('--font-family')
+  const bodyWeight = computedStyle.getPropertyValue('--body-weight')
+  const headingsWeight = computedStyle.getPropertyValue('--headings-weight')
   const textBaseMin = computedStyle.getPropertyValue('--text-base-min')
   const textBaseMax = computedStyle.getPropertyValue('--text-base-max')
   const textColWidth = computedStyle.getPropertyValue('--text-col-width')
@@ -10,6 +12,8 @@ const getVars = (computedStyle: CSSStyleDeclaration) => {
 
   const vars = {
     fontFamily,
+    bodyWeight,
+    headingsWeight,
     textBaseMin,
     textBaseMax,
     textColWidth,
@@ -119,14 +123,25 @@ const setDarkMode = () => {
   )
 }
 
-const getLoadedFonts = (): string[] => {
-  const fontsArr = Array.from(document.fonts)
-  const fontFamilies = fontsArr?.reduce<string[]>((acc, current, idx, arr) => {
-    console.log(current.family)
-    const family = `${current.family}`
-    if (!acc.includes(family)) acc.push(family)
-    return acc
-  }, [])
+const getLoadedFonts = () => {
+  // const fontsArr = Array.from(document.fonts)
+  // const fontFamilies = fontsArr?.reduce<string[]>((acc, current, idx, arr) => {
+  //   console.log(current.family)
+  //   const family = `${current.family}`
+  //   if (!acc.includes(family)) acc.push(family)
+  //   return acc
+  // }, [])
+
+  const fonts = Array.from(document.fonts).map<TFontFamily>(
+    ({ family, weight }) => ({
+      family,
+      weight,
+    })
+  )
+  const fontFamilies = Object.groupBy(
+    fonts,
+    ({ family }: TFontFamily) => family
+  ) as TFontFamilies
   return fontFamilies
 }
 
@@ -135,6 +150,21 @@ const setFont = () => {
   document.documentElement.style.setProperty(
     '--font-family',
     styles.value.fontFamily
+  )
+}
+
+const setBodyFontWeight = () => {
+  const styles = useState<TStyles>('styles')
+  document.documentElement.style.setProperty(
+    '--body-weight',
+    styles.value.bodyWeight
+  )
+}
+const setHeadingsFontWeight = () => {
+  const styles = useState<TStyles>('styles')
+  document.documentElement.style.setProperty(
+    '--headings-weight',
+    styles.value.headingsWeight
   )
 }
 
@@ -154,6 +184,8 @@ export const useStyles = () => {
     alignToBaseline: false,
     fontFamily: 'Arial, sans-serif',
     fontFamilies: null,
+    headingsWeight: '400',
+    bodyWeight: '400',
   }))
 
   onMounted(() => {
@@ -165,6 +197,8 @@ export const useStyles = () => {
     styles.value.gridCols = vars.value.gridCols as number
     styles.value.fontFamily = vars.value.fontFamily as string
     styles.value.fontFamilies = getLoadedFonts()
+    styles.value.bodyWeight = vars.value.bodyWeight as string
+    styles.value.headingsWeight = vars.value.headingsWeight as string
 
     setFontSizes(vars.value)
     setTextColWidth(vars.value)
@@ -183,6 +217,8 @@ export const useStyles = () => {
       setGridCols()
       setDarkMode()
       setFont()
+      setBodyFontWeight()
+      setHeadingsFontWeight()
     },
     { deep: true }
   )

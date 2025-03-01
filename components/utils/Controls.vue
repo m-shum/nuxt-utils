@@ -10,6 +10,10 @@ const toggleControls = () => {
 const $target = useTemplateRef('target')
 const $button = useTemplateRef('button')
 
+watch(showControls, (newVal) => {
+  if (!newVal) $button.value?.blur()
+})
+
 const handleDocumentClick = (e: any) => {
   if (!showControls.value) return
   const clickedInside =
@@ -66,6 +70,8 @@ onMounted(() => {
   --min-size: calc(var(--padding) * 2 + var(--button-size));
   --shadow-color: 23deg 43% 45%;
   --shadow-color-2: 286deg 47% 29%;
+  --controls-text-color: #412f45;
+  --controls-bg-color: #fffcfa;
 }
 
 .controls-toggle {
@@ -76,6 +82,7 @@ onMounted(() => {
     0.1px 1.2px 1.4px -0.8px hsl(var(--shadow-color-2) / 14%),
     0.2px 1.7px 3.1px -1.5px hsl(var(--shadow-color-2) / 15%),
     0.4px 5.4px 7.4px -2.3px hsl(var(--shadow-color) / 20%);
+  color: var(--controls-text-color);
   cursor: pointer;
   display: block;
   overflow: hidden;
@@ -89,7 +96,7 @@ onMounted(() => {
   z-index: 100;
 
   &__inner {
-    background: hsl(300deg 14% 96%);
+    background: var(--controls-bg-color);
     padding: 5px;
     transition: background 0.25s ease;
   }
@@ -112,6 +119,7 @@ onMounted(() => {
       0.1px 1.6px 1.4px -0.8px hsl(var(--shadow-color-2) / 11%),
       0.2px 3.3px 4.1px -1.5px hsl(var(--shadow-color-2) / 12%),
       0.4px 8.8px 7.4px -2.3px hsl(var(--shadow-color) / 17%);
+    outline: none;
     scale: 1.05;
 
     svg {
@@ -121,7 +129,7 @@ onMounted(() => {
 
     /* stylelint-disable-next-line */
     .controls-toggle__inner {
-      background: hsl(0deg 0% 100%);
+      background: var(--controls-bg-color);
     }
   }
 }
@@ -144,9 +152,9 @@ onMounted(() => {
   z-index: 100;
 
   &__inner {
-    background: var(--bg-color);
+    background: var(--controls-bg-color);
     border-radius: 9px;
-    color: var(--text-color);
+    color: var(--controls-text-color);
     padding: var(--padding);
     width: calc(250px + (var(--padding) * 2));
 

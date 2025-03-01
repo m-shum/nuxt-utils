@@ -5,10 +5,12 @@
   --text-color-dark: white;
   --bg-color: var(--bg-color-light);
   --text-color: var(--text-color-light);
-  --font-family: neue-haas-grotesk-display, sans-serif;
+  --font-family: neue-haas-grotesk-display;
   --text-base-min: 1rem;
   --text-base-max: 1.25rem;
   --line-height-base: 1.4;
+  --body-weight: 400;
+  --headings-weight: 400;
   --line-height: calc(var(--text-p) * var(--line-height-base));
   --text-col-width: 54ch;
   --fluid-type-start: 768px;
@@ -19,10 +21,7 @@
   --grid-cols: 10;
   --margins: calc(var(--base-margin) * 2);
   --total-gutters: calc(var(--grid-gutter) * (var(--grid-cols) - 1));
-  --col-width: calc(
-    (var(--container-width) - var(--total-gutters) - var(--margins)) /
-      var(--grid-cols)
-  ); // Omit margins if base-width excludes them
+  --col-width: calc((var(--container-width) - var(--total-gutters) - var(--margins)) / var(--grid-cols)); // Omit margins if base-width excludes them
 }
 
 $viewport: (

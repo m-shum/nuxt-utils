@@ -7,10 +7,12 @@ export type TStyles = {
   lineHeightBase: number
   typeScale: number
   fontFamily: string
+  bodyWeight: string
+  headingsWeight: string
   minBaseFontSize: number
   maxBaseFontSize: number
   alignToBaseline: boolean
-  fontFamilies: null | string[]
+  fontFamilies: null | TFontFamilies
 }
 
 export type TVars = {
@@ -23,4 +25,13 @@ export type TVars = {
   fluidTypeStop: number
   gridCols: number
   [key: string]: string | number
+}
+
+export type TFontFamily = {
+  family: string
+  weight: string
+}
+
+export type TFontFamilies = {
+  [key: string]: TFontFamily | undefined
 }

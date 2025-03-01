@@ -80,7 +80,7 @@ const toggleFocus = (value: boolean) => {
 
   &--focus * {
     --outline-color: hsl(315deg 11% 78%);
-    --shadow-opacity: 20%;
+    --shadow-opacity: 30%;
   }
 
   &__input-container {

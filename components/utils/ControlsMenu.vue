@@ -11,19 +11,44 @@ const typeScaleOptions = [
   { label: 'Perfect Fifth', value: 1.5 },
   { label: 'Golden Ratio', value: 1.618 },
 ]
-const fontFamilyOptions = computed(() =>
-  styles.value?.fontFamilies?.map((family) => {
-    console.log(family)
-    return {
+
+const fontFamilyOptions = computed(() => {
+  if (styles.value?.fontFamilies) {
+    return Object.keys(styles.value.fontFamilies)?.map((family) => ({
       label: `${family}`,
       value: `${family}`,
-    }
-  })
-)
-
-const defaultFontFamily = computed(() => {
-  styles.value?.fontFamily
+    }))
+  } else return []
 })
+
+const fontWeightOptions = computed(() => {
+  if (styles.value.fontFamily && styles.value.fontFamilies) {
+    const variant = styles.value.fontFamilies[styles.value.fontFamily] as
+      | TFontFamily[]
+      | undefined
+    return variant
+      ?.map(({ weight }: TFontFamily) => Number(weight))
+      .sort((a, b) => a - b)
+      .map((weight) => ({
+        label: `${weight}`,
+        value: `${weight}`,
+      }))
+  } else return []
+})
+
+watch(
+  () => styles.value.fontFamily,
+  () => {
+    const variant = styles.value.fontFamilies[styles.value.fontFamily] as
+      | TFontFamily[]
+      | undefined
+
+    if (variant) {
+      styles.value.bodyWeight = variant[0].weight as string
+      styles.value.headingsWeight = variant[0].weight as string
+    }
+  }
+)
 </script>
 <template>
   <div v-if="styles" class="controls-content flex flex-col flex-gap-base">
@@ -68,6 +93,36 @@ const defaultFontFamily = computed(() => {
             v-model="styles.fontFamily"
           >
             <template #label>font family</template>
+            <template #optLabel="{ option }">
+              <span>{{ option.label }}</span>
+            </template>
+          </ElementsInputSelect>
+        </li>
+        <li>
+          <ElementsInputSelect
+            :options="fontWeightOptions || []"
+            type="text"
+            :readonly="true"
+            placeholder="Enter value"
+            id="font-family"
+            v-model="styles.headingsWeight"
+          >
+            <template #label>headings weight</template>
+            <template #optLabel="{ option }">
+              <span>{{ option.label }}</span>
+            </template>
+          </ElementsInputSelect>
+        </li>
+        <li>
+          <ElementsInputSelect
+            :options="fontWeightOptions || []"
+            type="text"
+            :readonly="true"
+            placeholder="Enter value"
+            id="font-family"
+            v-model="styles.bodyWeight"
+          >
+            <template #label>body copy weight</template>
             <template #optLabel="{ option }">
               <span>{{ option.label }}</span>
             </template>
