@@ -4,7 +4,9 @@ useStyles()
 </script>
 <template>
   <UtilsGrid />
-  <UtilsControls />
+  <ClientOnly>
+    <UtilsControls />
+  </ClientOnly>
   <main class="container">
     <SampleCopy />
   </main>
