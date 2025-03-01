@@ -1,9 +1,8 @@
 <script setup lang="ts">
-const isDevMode = import.meta.dev
+useStyles()
 
 const showControls = ref(false)
 const toggleControls = () => {
-  if (!isDevMode) return
   showControls.value = !showControls.value
 }
 
