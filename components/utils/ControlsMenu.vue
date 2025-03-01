@@ -39,7 +39,7 @@ const fontWeightOptions = computed(() => {
 watch(
   () => styles.value.fontFamily,
   () => {
-    const variant = styles.value.fontFamilies[styles.value.fontFamily] as
+    const variant = styles.value.fontFamilies?.[styles.value.fontFamily] as
       | TFontFamily[]
       | undefined
 
