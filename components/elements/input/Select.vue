@@ -113,26 +113,28 @@ onMounted(() => {
     <ElementsInput :id type="select" class="autocomplete">
       <template #label><slot name="label" /></template>
       <template #input="{ toggleFocus }">
-        <div @keydown="handleKeydown" :style="{ flex: '1' }">
-          <input
-            autocapitalize="none"
-            autocomplete="off"
-            aria-autocomplete="list"
-            role="combobox"
-            aria-owns="listbox"
-            aria-haspopup="listbox"
-            ref="input"
-            :id
-            :readonly
-            :name="id"
-            v-model="model"
-            :placeholder
-            :type
-            class="autocomplete__input"
-            @focus="toggleFocus(true)"
-            @blur="toggleFocus(false)"
-            @click="showDropdown"
-          />
+        <div class="flex w-full justify-between">
+          <div @keydown="handleKeydown" :style="{ flex: '1' }">
+            <input
+              autocapitalize="none"
+              autocomplete="off"
+              aria-autocomplete="list"
+              role="combobox"
+              aria-owns="listbox"
+              aria-haspopup="listbox"
+              ref="input"
+              :id
+              :readonly
+              :name="id"
+              v-model="model"
+              :placeholder
+              :type
+              class="autocomplete__input"
+              @focus="toggleFocus(true)"
+              @blur="toggleFocus(false)"
+              @click="showDropdown"
+            />
+          </div>
           <div v-show="isDropdownOpen" class="autocomplete__dropdown-container">
             <ul role="list" id="listbox" ref="list">
               <li
@@ -147,31 +149,29 @@ onMounted(() => {
               </li>
             </ul>
           </div>
-        </div>
-      </template>
-      <template #controls>
-        <button
-          @click="toggleDropdown"
-          :aria-expanded="isDropdownOpen"
-          aria-controls="listbox"
-          class="autocomplete__controls flex flex-col justify-center items-center"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-chevron-up"
-            aria-hidden="true"
+          <button
+            @click="toggleDropdown"
+            :aria-expanded="isDropdownOpen"
+            aria-controls="listbox"
+            class="autocomplete__controls flex flex-col justify-center items-center"
           >
-            <path d="m18 15-6-6-6 6"></path>
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-chevron-up"
+              aria-hidden="true"
+            >
+              <path d="m18 15-6-6-6 6"></path>
+            </svg>
+          </button>
+        </div>
       </template>
     </ElementsInput>
   </div>
@@ -221,18 +221,17 @@ onMounted(() => {
     }
   }
 
-  &__controls {
-    border-bottom: none !important;
-    border-bottom-right-radius: inherit;
-    border-left: 1px solid var(--outline-color);
-    border-top-right-radius: inherit;
-    display: flex;
-    flex: 1;
+  button {
+    aspect-ratio: 1;
+    border-bottom-right-radius: var(--input-border-radius);
+    border-top-right-radius: var(--input-border-radius);
+    flex-shrink: 0;
+    height: 100%;
     outline: none;
-    width: 16px;
+    padding-right: 2px;
 
-    &:first-of-type {
-      border-bottom: 1px solid var(--outline-color);
+    &:last-of-type {
+      border-left: 1px solid var(--outline-color);
     }
 
     svg {

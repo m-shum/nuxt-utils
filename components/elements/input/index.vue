@@ -28,9 +28,6 @@ const toggleFocus = (value: boolean) => {
       ]"
     >
       <slot name="input" :toggle-focus="toggleFocus" />
-      <div v-if="$slots.controls" class="input__controls-container">
-        <slot name="controls" />
-      </div>
     </div>
   </label>
 </template>
@@ -122,23 +119,13 @@ const toggleFocus = (value: boolean) => {
     }
   }
 
-  &__controls-container {
-    align-items: stretch;
-    border-bottom-right-radius: var(--input-border-radius);
-    border-left: var(--outline-color);
-    border-top-right-radius: var(--input-border-radius);
-    display: flex;
-    flex-shrink: 0;
-    overflow: hidden;
+  button {
+    transition: background 0.25s ease;
 
-    button {
-      transition: background 0.25s ease;
-
-      &:hover,
-      &:active,
-      &:focus {
-        background: var(--input-color-focused);
-      }
+    &:hover,
+    &:active,
+    &:focus {
+      background: var(--input-color-focused);
     }
   }
 }

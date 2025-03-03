@@ -19,19 +19,18 @@ const incrementCount = (value: number) => {
   <ElementsInput :id type="number" class="input-number">
     <template #label><slot /></template>
     <template #input="{ toggleFocus }">
-      <input
-        v-model="model"
-        class="input-number__input"
-        :id
-        :step
-        type="number"
-        :name="id"
-        @focus="toggleFocus(true)"
-        @blur="toggleFocus(false)"
-    /></template>
-    <template #controls>
-      <div class="input-number__controls flex flex-col">
+      <div class="flex justify-between w-full">
         <button @click="incrementCount(1)"><span>+</span></button>
+        <input
+          v-model="model"
+          class="input-number__input"
+          :id
+          :step
+          type="number"
+          :name="id"
+          @focus="toggleFocus(true)"
+          @blur="toggleFocus(false)"
+        />
         <button @click="incrementCount(-1)"><span>-</span></button>
       </div>
     </template>
@@ -47,22 +46,27 @@ const incrementCount = (value: number) => {
     }
   }
 
-  &__controls {
-    border-left: 1px solid var(--outline-color);
+  button {
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    height: 100%;
+    outline: none;
+    padding-right: 2px;
 
-    button {
-      flex: 1;
-      outline: none;
-      padding-right: 2px;
-      width: 16px;
+    &:first-of-type {
+      border-bottom-left-radius: var(--input-border-radius);
+      border-right: 1px solid var(--outline-color);
+      border-top-left-radius: var(--input-border-radius);
+    }
 
-      &:first-of-type {
-        border-bottom: 1px solid var(--outline-color);
-      }
+    &:last-of-type {
+      border-bottom-right-radius: var(--input-border-radius);
+      border-left: 1px solid var(--outline-color);
+      border-top-right-radius: var(--input-border-radius);
+    }
 
-      span {
-        line-height: 1;
-      }
+    span {
+      line-height: 1;
     }
   }
 }
