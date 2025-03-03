@@ -57,22 +57,24 @@ watch(
         aria-labelledby="menu-layout-heading"
         class="controls-content__menu"
       >
-        <li>
-          <ElementsInputCheckbox
-            type="checkbox"
-            id="dark-mode"
-            v-model="styles.isDark"
-            >dark mode</ElementsInputCheckbox
-          >
-        </li>
-        <li>
-          <ElementsInputCheckbox
-            type="checkbox"
-            id="toggle-overlay"
-            v-model="styles.showOverlay"
-            >show overlay</ElementsInputCheckbox
-          >
-        </li>
+        <div class="flex justify-between">
+          <li>
+            <ElementsInputCheckbox
+              type="checkbox"
+              id="dark-mode"
+              v-model="styles.isDark"
+              >dark mode</ElementsInputCheckbox
+            >
+          </li>
+          <li>
+            <ElementsInputCheckbox
+              type="checkbox"
+              id="toggle-overlay"
+              v-model="styles.showOverlay"
+              >grid overlay</ElementsInputCheckbox
+            >
+          </li>
+        </div>
         <li>
           <ElementsInputNumber id="base-grid-cols" v-model="styles.gridCols"
             >grid columns</ElementsInputNumber
@@ -191,6 +193,7 @@ watch(
   &__menu {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
 
     .opt-label {
       span {

@@ -128,5 +128,9 @@ const toggleFocus = (value: boolean) => {
       background: var(--input-color-focused);
     }
   }
+
+  &__label {
+    opacity: 0.8;
+  }
 }
 </style>
