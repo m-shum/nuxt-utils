@@ -3,6 +3,7 @@ type TProps = {
   id: string
   maxVal?: number
   step?: number
+  name: string
 }
 const props = withDefaults(defineProps<TProps>(), { step: 1 })
 
@@ -20,7 +21,9 @@ const incrementCount = (value: number) => {
     <template #label><slot /></template>
     <template #input="{ toggleFocus }">
       <div class="flex justify-between w-full">
-        <button @click="incrementCount(1)"><span>+</span></button>
+        <button @click="incrementCount(-1)" :title="`Increment ${name}`">
+          <span>-</span>
+        </button>
         <input
           v-model="model"
           class="input-number__input"
@@ -31,7 +34,9 @@ const incrementCount = (value: number) => {
           @focus="toggleFocus(true)"
           @blur="toggleFocus(false)"
         />
-        <button @click="incrementCount(-1)"><span>-</span></button>
+        <button @click="incrementCount(1)" :title="`Decrement ${name}`">
+          <span>+</span>
+        </button>
       </div>
     </template>
   </ElementsInput>

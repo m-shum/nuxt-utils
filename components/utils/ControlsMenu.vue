@@ -76,12 +76,18 @@ watch(
           </li>
         </div>
         <li>
-          <ElementsInputNumber id="base-grid-cols" v-model="styles.gridCols"
+          <ElementsInputNumber
+            id="base-grid-cols"
+            v-model="styles.gridCols"
+            name="grid columns"
             >grid columns</ElementsInputNumber
           >
         </li>
         <li>
-          <ElementsInputNumber id="base-text-cols" v-model="styles.textColWidth"
+          <ElementsInputNumber
+            id="base-text-cols"
+            v-model="styles.textColWidth"
+            name="text column width"
             >text column width (ch)</ElementsInputNumber
           >
         </li>
@@ -92,6 +98,7 @@ watch(
             :readonly="true"
             placeholder="Enter value"
             id="font-family"
+            name="font family"
             v-model="styles.fontFamily"
           >
             <template #label>font family</template>
@@ -106,7 +113,8 @@ watch(
             type="text"
             :readonly="true"
             placeholder="Enter value"
-            id="font-family"
+            id="heading-weight"
+            name="headings weight"
             v-model="styles.headingsWeight"
           >
             <template #label>headings weight</template>
@@ -121,7 +129,8 @@ watch(
             type="text"
             :readonly="true"
             placeholder="Enter value"
-            id="font-family"
+            id="body-copy-weight"
+            name="body copy weight"
             v-model="styles.bodyWeight"
           >
             <template #label>body copy weight</template>
@@ -133,6 +142,7 @@ watch(
         <li>
           <ElementsInputNumber
             id="min-font-size"
+            name="min base font size"
             v-model="styles.minBaseFontSize"
             >min base font size</ElementsInputNumber
           >
@@ -140,6 +150,7 @@ watch(
         <li>
           <ElementsInputNumber
             id="max-font-size"
+            name="max base font size"
             v-model="styles.maxBaseFontSize"
             >max base font size</ElementsInputNumber
           >
@@ -150,6 +161,7 @@ watch(
             type="number"
             placeholder="Enter value"
             id="type-scale"
+            name="type scale"
             v-model="styles.typeScale"
           >
             <template #label>type scale</template>
@@ -165,6 +177,7 @@ watch(
         <li>
           <ElementsInputNumber
             id="line-height"
+            name="line height"
             v-model="styles.lineHeightBase"
             :step="0.1"
             >line height</ElementsInputNumber

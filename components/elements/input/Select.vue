@@ -9,6 +9,7 @@ type TProps = {
   placeholder?: string
   readonly?: boolean
   type: string
+  name: string
 }
 const props = withDefaults(defineProps<TProps>(), { readonly: false })
 
@@ -153,6 +154,9 @@ onMounted(() => {
             @click="toggleDropdown"
             :aria-expanded="isDropdownOpen"
             aria-controls="listbox"
+            :title="
+              isDropdownOpen ? `Hide ${name} options` : `Show ${name} options`
+            "
             class="autocomplete__controls flex flex-col justify-center items-center"
           >
             <svg
