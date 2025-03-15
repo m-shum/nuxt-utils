@@ -108,6 +108,11 @@ onMounted(() => {
       opacity 0.25s ease,
       transform 0.35s ease-in-out;
     width: var(--button-size);
+
+    path,
+    circle {
+      stroke-width: 1.5px;
+    }
   }
 
   &:hover,

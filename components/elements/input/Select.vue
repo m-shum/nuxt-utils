@@ -194,7 +194,7 @@ onMounted(() => {
   }
 
   &__dropdown-container {
-    background: var(--bg-color);
+    background: var(--controls-bg-color);
     border-radius: var(--input-border-radius);
     bottom: -3px;
     box-shadow: var(--input-shadow);
