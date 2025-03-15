@@ -21,5 +21,5 @@ export default defineNuxtConfig({
     plugins: [stylelint()],
   },
 
-  modules: ['@vueuse/nuxt'],
+  modules: ['@vueuse/nuxt', '@nuxt/eslint'],
 })
