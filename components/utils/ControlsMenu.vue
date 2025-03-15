@@ -183,6 +183,15 @@ watch(
             >line height</ElementsInputNumber
           >
         </li>
+        <li>
+          <ElementsInputNumber
+            id="letter-spacing"
+            name="letter spacing"
+            v-model="styles.letterSpacing"
+            :step="0.01"
+            >letter spacing</ElementsInputNumber
+          >
+        </li>
         <!-- <li>
           <ElementsInputCheckbox type="checkbox" id="baseline-align"
             >align to baseline</ElementsInputCheckbox

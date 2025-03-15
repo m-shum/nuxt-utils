@@ -12,6 +12,7 @@ body {
   font-size: #{get-font-size(1)};
   font-style: normal;
   font-weight: var(--body-weight);
+  letter-spacing: var(--letter-spacing);
 
   &.dev-grid {
     background-image: linear-gradient(to bottom, #0ff 0, transparent 1px);

@@ -5,6 +5,7 @@ export type TStyles = {
   textCols: number
   textColWidth: number
   lineHeightBase: number
+  letterSpacing: number
   typeScale: number
   fontFamily: string
   bodyWeight: string
@@ -21,6 +22,7 @@ export type TVars = {
   textBaseMax: number
   textColWidth: number
   lineHeightBase: number
+  letterSpacingBase: number
   fluidTypeStart: number
   fluidTypeStop: number
   gridCols: number

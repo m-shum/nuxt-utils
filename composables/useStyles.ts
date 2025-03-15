@@ -6,6 +6,7 @@ const getVars = (computedStyle: CSSStyleDeclaration) => {
   const textBaseMax = computedStyle.getPropertyValue('--text-base-max')
   const textColWidth = computedStyle.getPropertyValue('--text-col-width')
   const lineHeightBase = computedStyle.getPropertyValue('--line-height-base')
+  const letterSpacingBase = computedStyle.getPropertyValue('--letter-spacing')
   const fluidTypeStart = computedStyle.getPropertyValue('--fluid-type-start')
   const fluidTypeStop = computedStyle.getPropertyValue('--fluid-type-stop')
   const gridCols = computedStyle.getPropertyValue('--grid-cols')
@@ -18,6 +19,7 @@ const getVars = (computedStyle: CSSStyleDeclaration) => {
     textBaseMax,
     textColWidth,
     lineHeightBase,
+    letterSpacingBase,
     fluidTypeStart,
     fluidTypeStop,
     gridCols,
@@ -103,6 +105,14 @@ const setLineHeightBase = () => {
   )
 }
 
+const setLetterSpacing = () => {
+  const styles = useState<TStyles>('styles')
+  document.documentElement.style.setProperty(
+    '--letter-spacing',
+    `${styles.value.letterSpacing}ch`
+  )
+}
+
 const setGridCols = () => {
   const styles = useState<TStyles>('styles')
   document.documentElement.style.setProperty(
@@ -124,14 +134,6 @@ const setDarkMode = () => {
 }
 
 const getLoadedFonts = () => {
-  // const fontsArr = Array.from(document.fonts)
-  // const fontFamilies = fontsArr?.reduce<string[]>((acc, current, idx, arr) => {
-  //   console.log(current.family)
-  //   const family = `${current.family}`
-  //   if (!acc.includes(family)) acc.push(family)
-  //   return acc
-  // }, [])
-
   const fonts = Array.from(document.fonts).map<TFontFamily>(
     ({ family, weight }) => ({
       family,
@@ -178,6 +180,7 @@ export const useStyles = () => {
     textCols: 1,
     textColWidth: 64,
     lineHeightBase: 1.4,
+    letterSpacing: 0,
     typeScale: 1.25,
     minBaseFontSize: 16,
     maxBaseFontSize: 20,
@@ -194,6 +197,8 @@ export const useStyles = () => {
     styles.value.minBaseFontSize = vars.value.textBaseMin as number
     styles.value.maxBaseFontSize = vars.value.textBaseMax as number
     styles.value.textColWidth = vars.value.textColWidth as number
+    styles.value.lineHeightBase = vars.value.lineHeightBase as number
+    styles.value.letterSpacing = vars.value.letterSpacingBase as number
     styles.value.gridCols = vars.value.gridCols as number
     styles.value.fontFamily = vars.value.fontFamily as string
     styles.value.fontFamilies = getLoadedFonts()
@@ -214,6 +219,7 @@ export const useStyles = () => {
         setTextColWidth(vars.value)
       }
       setLineHeightBase()
+      setLetterSpacing()
       setGridCols()
       setDarkMode()
       setFont()
