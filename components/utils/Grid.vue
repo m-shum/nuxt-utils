@@ -37,9 +37,9 @@ const styles = useState<TStyles>('styles')
     pointer-events: none;
 
     &__col {
-      background: red;
+      background: rgb(255 174 174);
       height: 100svh;
-      opacity: 0.03;
+      opacity: 0.15;
       @include get-cols(1, width);
     }
   }
