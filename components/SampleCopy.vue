@@ -107,6 +107,12 @@
         </div>
       </div>
 
+      <small>
+        Nothing in this Declaration may be interpreted as implying for any
+        State, group or person any right to engage in any activity or to perform
+        any act aimed at the destruction of any of the rights and freedoms set
+        forth herein.</small
+      >
       <!-- <dl class="flex-gap-base">
         <div>
           <dt>Established</dt>
