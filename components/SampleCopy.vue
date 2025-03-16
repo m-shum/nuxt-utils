@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 <template>
-  <div class="flex flex-gap-base">
+  <div class="flex-gap-base">
     <div class="body-copy">
       <div>
         <h1>Universal Declaration of Human Rights</h1>
@@ -113,47 +113,78 @@
         any act aimed at the destruction of any of the rights and freedoms set
         forth herein.</small
       >
-      <!-- <dl class="flex-gap-base">
-        <div>
-          <dt>Established</dt>
-          <dd>1948</dd>
-        </div>
-        <div>
-          <dt>Translations</dt>
-          <dd>562</dd>
-        </div>
-        <div>
-          <dt>Member states</dt>
-          <dd>193</dd>
-        </div>
-      </dl>
-      <h3>Everyone has the right to life, liberty and security of person.</h3>
-      <p>
-        Everyone is entitled to all the rights and freedoms set forth in this
-        Declaration, without distinction of any kind, such as race, colour, sex,
-        language, religion, political or other opinion, national or social
-        origin, property, birth or other status. Furthermore, no distinction
-        shall be made on the basis of the political, jurisdictional or
-        international status of the country or territory to which a person
-        belongs, whether it be independent, trust, non-self-governing or under
-        any other limitation of sovereignty.
-      </p>
-      <p>
-        All human beings are born free and equal in dignity and rights. They are
-        endowed with reason and conscience and should act towards one another in
-        a spirit of brotherhood.
-      </p>
-      <p>
-        Nothing in this Declaration may be interpreted as implying for any
-        State, group or person any right to engage in any activity or to perform
-        any act aimed at the destruction of any of the rights and freedoms set
-        forth herein.
-      </p> -->
     </div>
-    <!-- <div class="img"><div></div></div> -->
+    <div class="examples">
+      <h1>Universal Declaration of Human Rights</h1>
+      <h2>Universal Declaration of Human Rights</h2>
+      <h3>Universal Declaration of Human Rights</h3>
+      <h4>Universal Declaration of Human Rights</h4>
+      <h5>Universal Declaration of Human Rights</h5>
+      <h6>Universal Declaration of Human Rights</h6>
+      <p>Universal Declaration of Human Rights</p>
+      <small>Universal Declaration of Human Rights</small>
+      <p class="body">
+        The Universal Declaration of Human Rights (UDHR) is a milestone document
+        in the history of human rights. Drafted by representatives with
+        different legal and cultural backgrounds from all regions of the world,
+        the Declaration was proclaimed by the United Nations General Assembly in
+        Paris on 10 December 1948 (General Assembly resolution 217 A) as a
+        common standard of achievements for all peoples and all nations. It sets
+        out, for the first time, fundamental human rights to be universally
+        protected and it has been translated into over 500 languages. The UDHR
+        is widely recognized as having inspired, and paved the way for, the
+        adoption of more than seventy human rights treaties, applied today on a
+        permanent basis at global and regional levels (all containing references
+        to it in their preambles).
+      </p>
+    </div>
   </div>
 </template>
 <style lang="scss">
+.body-copy,
+.examples {
+  margin-bottom: #{use-line-height(1)};
+  max-width: 100%;
+
+  h1 {
+    margin: #{use-line-height(1)} 0;
+  }
+
+  h2 {
+    margin-top: #{use-line-height(2)};
+  }
+
+  h3 {
+    margin-top: #{use-line-height(3)};
+  }
+
+  h4 {
+    margin-top: #{use-line-height(4)};
+  }
+
+  h5 {
+    margin-top: #{use-line-height(5)};
+  }
+
+  h6 {
+    margin-top: #{use-line-height(6)};
+  }
+
+  p {
+    margin-top: #{use-line-height('p')};
+  }
+
+  small {
+    display: block;
+    margin-top: #{use-line-height('small')};
+  }
+
+  .body {
+    margin-top: #{use-line-height(2)};
+    max-width: #{get-max-width('p')};
+  }
+}
+
 .body-copy {
   margin-bottom: #{use-line-height(1)};
   max-width: 100%;

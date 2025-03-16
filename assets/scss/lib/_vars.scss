@@ -1,10 +1,16 @@
 :root {
-  --bg-color-light: white;
-  --text-color-light: black;
-  --bg-color-dark: black;
-  --text-color-dark: white;
-  --bg-color: var(--bg-color-light);
-  --text-color: var(--text-color-light);
+  // Colors
+  --base-opacity-light: 0.05;
+  --base-opacity-dark: 0.15;
+  --base-opacity: var(--base-opacity-light);
+  --bg-color-light: 255, 255, 255;
+  --text-color-light: 0, 0, 0;
+  --bg-color-dark: 0, 0, 0;
+  --text-color-dark: 255, 255, 255;
+  --bg-color: rgba(var(--bg-color-light), 1);
+  --text-color: rgba(var(--text-color-light), 1);
+
+  // Typography
   --font-family: neue-haas-grotesk-display;
   --text-base-min: 1rem;
   --text-base-max: 1.25rem;
@@ -13,19 +19,30 @@
   --body-weight: 400;
   --headings-weight: 400;
   --line-height: calc(var(--text-p) * var(--line-height-base));
+
+  // Sizing
   --text-col-width: 54ch;
   --fluid-type-start: 768px;
   --fluid-type-stop: 1599px;
   --container-width: 100vw; // Width of page container inc margins
   --base-margin: calc(var(--line-height) * 2);
+
+  // Grid
   --grid-gutter: var(--line-height);
   --grid-cols: 10;
   --margins: calc(var(--base-margin) * 2);
   --total-gutters: calc(var(--grid-gutter) * (var(--grid-cols) - 1));
-  --col-width: calc(
-    (var(--container-width) - var(--total-gutters) - var(--margins)) /
-      var(--grid-cols)
-  ); // Omit margins if base-width excludes them
+  --col-width: calc((var(--container-width) - var(--total-gutters) - var(--margins)) / var(--grid-cols)); // Omit margins if base-width excludes them
+
+  // Controls bg
+  --controls-bg-light: hsl(0deg 53% 97%);
+  --controls-bg-dark: hsl(280deg 18% 7%);
+  --controls-bg: var(--controls-bg-light);
+
+  // Controls text
+  --controls-text-light: hsl(330deg 3% 11%);
+  --controls-text-dark: hsl(0deg 8% 97%);
+  --controls-text: var(--controls-text-light);
 }
 
 $viewport: (
@@ -37,6 +54,7 @@ $viewport: (
   :root {
     --bg-color: var(--bg-color-dark);
     --text-color: var(--bg-color-light);
+    --base-opacity: var(--base-opacity-dark);
     --input-outline-rgb: 222, 239, 241;
   }
 }

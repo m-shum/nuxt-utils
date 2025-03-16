@@ -58,7 +58,7 @@
 }
 
 .ridiculous-button {
-  --button-text: var(--text-color);
+  --button-text: rgba(var(--text-color), 1);
   --button-base-bg: rgb(38 38 39 / 10%);
 
   background: var(--button-base-bg);
@@ -113,7 +113,7 @@
     --bg-scale 0.25s;
 
   &:hover {
-    --button-inner-bg: var(--bg-color);
+    --button-inner-bg: rgba(var(--bg-color), 1);
     --bg-gradient-1: rgb(255 104 227 / 75.3%);
     --bg-gradient-2: rgb(252 209 64);
     --bg-scale: 55%;

@@ -94,24 +94,16 @@ const handleSelect = (value: any) => {
   toggleInputFocus(true)
 }
 
-const handleFocus = () => {
-  toggleInputFocus(true)
-  isDropdownOpen.value = true
-}
-
-const handleDocumentClick = (e: any) => {
-  if (!isDropdownOpen.value) return
-  const clickedInside = $inputContainer.value?.contains(e.target)
-  if (!clickedInside) hideDropdown()
-}
-
-onMounted(() => {
-  document.addEventListener('click', handleDocumentClick)
-})
+useIsClickInsideTarget($inputContainer, hideDropdown)
 </script>
 <template>
   <div ref="inputContainer">
-    <ElementsInput :id type="select" class="autocomplete">
+    <ElementsInput
+      :id
+      type="select"
+      class="autocomplete"
+      :class="{ 'input--focus': isDropdownOpen }"
+    >
       <template #label><slot name="label" /></template>
       <template #input="{ toggleFocus }">
         <div class="flex w-full justify-between">
@@ -194,12 +186,12 @@ onMounted(() => {
   }
 
   &__dropdown-container {
-    background: var(--controls-bg-color);
+    background: rgba(var(--bg-color), 1);
     border-radius: var(--input-border-radius);
     bottom: -3px;
     box-shadow: var(--input-shadow);
     height: fit-content;
-    outline: 1px solid var(--outline-color);
+    outline: 1px solid var(--input-border-color);
     position: absolute;
     transform: translateY(100%);
     width: 100%;
@@ -210,12 +202,13 @@ onMounted(() => {
         padding: calc(0.75rem / 1.5);
 
         &:not(:last-of-type) {
-          border-bottom: 1px solid hsl(320deg 5% 88%);
+          border-bottom: 1px solid
+            hsla(0deg 0% var(--input-border-lightness) / 90%);
         }
 
         &:focus,
         &:hover {
-          background: var(--input-color);
+          background: rgba(var(--text-color), var(--base-opacity));
         }
 
         &:focus {
@@ -235,7 +228,7 @@ onMounted(() => {
     padding-right: 2px;
 
     &:last-of-type {
-      border-left: 1px solid var(--outline-color);
+      border-left: 1px solid var(--input-border-color);
     }
 
     svg {

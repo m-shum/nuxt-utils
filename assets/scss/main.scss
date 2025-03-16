@@ -6,10 +6,10 @@
 @import 'https://use.typekit.net/nmp8xyh.css';
 
 body {
-  background: var(--bg-color);
-  color: var(--text-color);
+  background: rgba(var(--bg-color), 1);
+  color: rgba(var(--text-color), 1);
   font-family: var(--font-family);
-  font-size: #{get-font-size(1)};
+  font-size: #{get-font-size('p')};
   font-style: normal;
   font-weight: var(--body-weight);
   letter-spacing: var(--letter-spacing);
@@ -76,6 +76,10 @@ small {
 
 // Reusable Classes //
 
+.fixed {
+  position: fixed;
+}
+
 .flex {
   display: flex;
 }
@@ -90,6 +94,10 @@ small {
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
 }
 
 .items-center {
@@ -110,6 +118,15 @@ small {
 
 .w-full {
   width: 100%;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.opaque {
+  background: rgb(var(--bg-color));
+  color: currentcolor;
 }
 
 .visually-hidden {

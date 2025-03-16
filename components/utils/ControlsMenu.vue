@@ -1,4 +1,8 @@
 <script setup lang="ts">
+type TProps = { open: boolean }
+const props = withDefaults(defineProps<TProps>(), { open: false })
+
+const bem = useBem('menu')
 const styles = useState<TStyles>('styles')
 
 const typeScaleOptions = [
@@ -51,176 +55,195 @@ watch(
 )
 </script>
 <template>
-  <div v-if="styles" class="controls-content flex flex-col flex-gap-base">
-    <div>
-      <menu
-        aria-labelledby="menu-layout-heading"
-        class="controls-content__menu"
-      >
-        <div class="flex justify-between">
+  <div
+    v-if="styles"
+    ref="menu"
+    class="menu opaque fixed"
+    :class="{ open: props.open }"
+  >
+    <div
+      ref="content"
+      :class="bem('content')"
+      class="flex flex-col flex-gap-base"
+    >
+      <div>
+        <menu
+          aria-labelledby="menu-layout-heading"
+          class="controls-content__menu flex flex-col"
+        >
+          <div class="flex justify-between">
+            <li>
+              <ElementsInputCheckbox
+                type="checkbox"
+                id="dark-mode"
+                v-model="styles.isDark"
+                >dark mode</ElementsInputCheckbox
+              >
+            </li>
+            <li>
+              <ElementsInputCheckbox
+                type="checkbox"
+                id="toggle-overlay"
+                v-model="styles.showOverlay"
+                >grid overlay</ElementsInputCheckbox
+              >
+            </li>
+          </div>
           <li>
-            <ElementsInputCheckbox
-              type="checkbox"
-              id="dark-mode"
-              v-model="styles.isDark"
-              >dark mode</ElementsInputCheckbox
+            <ElementsInputNumber
+              id="base-grid-cols"
+              v-model="styles.gridCols"
+              name="grid columns"
+              >grid columns</ElementsInputNumber
             >
           </li>
           <li>
-            <ElementsInputCheckbox
-              type="checkbox"
-              id="toggle-overlay"
-              v-model="styles.showOverlay"
-              >grid overlay</ElementsInputCheckbox
+            <ElementsInputNumber
+              id="base-text-cols"
+              v-model="styles.textColWidth"
+              name="text column width"
+              >text column width (ch)</ElementsInputNumber
             >
           </li>
-        </div>
-        <li>
-          <ElementsInputNumber
-            id="base-grid-cols"
-            v-model="styles.gridCols"
-            name="grid columns"
-            >grid columns</ElementsInputNumber
-          >
-        </li>
-        <li>
-          <ElementsInputNumber
-            id="base-text-cols"
-            v-model="styles.textColWidth"
-            name="text column width"
-            >text column width (ch)</ElementsInputNumber
-          >
-        </li>
-        <li>
-          <ElementsInputSelect
-            :options="fontFamilyOptions || []"
-            type="text"
-            :readonly="true"
-            placeholder="Enter value"
-            id="font-family"
-            name="font family"
-            v-model="styles.fontFamily"
-          >
-            <template #label>font family</template>
-            <template #optLabel="{ option }">
-              <span>{{ option.label }}</span>
-            </template>
-          </ElementsInputSelect>
-        </li>
-        <li>
-          <ElementsInputSelect
-            :options="fontWeightOptions || []"
-            type="text"
-            :readonly="true"
-            placeholder="Enter value"
-            id="heading-weight"
-            name="headings weight"
-            v-model="styles.headingsWeight"
-          >
-            <template #label>headings weight</template>
-            <template #optLabel="{ option }">
-              <span>{{ option.label }}</span>
-            </template>
-          </ElementsInputSelect>
-        </li>
-        <li>
-          <ElementsInputSelect
-            :options="fontWeightOptions || []"
-            type="text"
-            :readonly="true"
-            placeholder="Enter value"
-            id="body-copy-weight"
-            name="body copy weight"
-            v-model="styles.bodyWeight"
-          >
-            <template #label>body copy weight</template>
-            <template #optLabel="{ option }">
-              <span>{{ option.label }}</span>
-            </template>
-          </ElementsInputSelect>
-        </li>
-        <li>
-          <ElementsInputNumber
-            id="min-font-size"
-            name="min base font size"
-            v-model="styles.minBaseFontSize"
-            >min base font size</ElementsInputNumber
-          >
-        </li>
-        <li>
-          <ElementsInputNumber
-            id="max-font-size"
-            name="max base font size"
-            v-model="styles.maxBaseFontSize"
-            >max base font size</ElementsInputNumber
-          >
-        </li>
-        <li>
-          <ElementsInputSelect
-            :options="typeScaleOptions"
-            type="number"
-            placeholder="Enter value"
-            id="type-scale"
-            name="type scale"
-            v-model="styles.typeScale"
-          >
-            <template #label>type scale</template>
-            <template #optLabel="{ option }">
-              <div class="opt-label">
-                <span>{{ option.value }}</span>
-                <span>:&nbsp;</span>
+          <li>
+            <ElementsInputSelect
+              :options="fontFamilyOptions || []"
+              type="text"
+              :readonly="true"
+              placeholder="Enter value"
+              id="font-family"
+              name="font family"
+              v-model="styles.fontFamily"
+            >
+              <template #label>font family</template>
+              <template #optLabel="{ option }">
                 <span>{{ option.label }}</span>
-              </div>
-            </template>
-          </ElementsInputSelect>
-        </li>
-        <li>
-          <ElementsInputNumber
-            id="line-height"
-            name="line height"
-            v-model="styles.lineHeightBase"
-            :step="0.1"
-            >line height</ElementsInputNumber
-          >
-        </li>
-        <li>
-          <ElementsInputNumber
-            id="letter-spacing"
-            name="letter spacing"
-            v-model="styles.letterSpacing"
-            :step="0.01"
-            >letter spacing</ElementsInputNumber
-          >
-        </li>
-        <!-- <li>
-          <ElementsInputCheckbox type="checkbox" id="baseline-align"
-            >align to baseline</ElementsInputCheckbox
-          >
-        </li> -->
-      </menu>
+              </template>
+            </ElementsInputSelect>
+          </li>
+          <li>
+            <ElementsInputSelect
+              :options="fontWeightOptions || []"
+              type="text"
+              :readonly="true"
+              placeholder="Enter value"
+              id="heading-weight"
+              name="headings weight"
+              v-model="styles.headingsWeight"
+            >
+              <template #label>headings weight</template>
+              <template #optLabel="{ option }">
+                <span>{{ option.label }}</span>
+              </template>
+            </ElementsInputSelect>
+          </li>
+          <li>
+            <ElementsInputSelect
+              :options="fontWeightOptions || []"
+              type="text"
+              :readonly="true"
+              placeholder="Enter value"
+              id="body-copy-weight"
+              name="body copy weight"
+              v-model="styles.bodyWeight"
+            >
+              <template #label>body copy weight</template>
+              <template #optLabel="{ option }">
+                <span>{{ option.label }}</span>
+              </template>
+            </ElementsInputSelect>
+          </li>
+          <li>
+            <ElementsInputNumber
+              id="min-font-size"
+              name="min base font size"
+              v-model="styles.minBaseFontSize"
+              >min base font size</ElementsInputNumber
+            >
+          </li>
+          <li>
+            <ElementsInputNumber
+              id="max-font-size"
+              name="max base font size"
+              v-model="styles.maxBaseFontSize"
+              >max base font size</ElementsInputNumber
+            >
+          </li>
+          <li>
+            <ElementsInputSelect
+              :options="typeScaleOptions"
+              type="number"
+              placeholder="Enter value"
+              id="type-scale"
+              name="type scale"
+              v-model="styles.typeScale"
+            >
+              <template #label>type scale</template>
+              <template #optLabel="{ option }">
+                <div class="opt-label">
+                  <span>{{ option.value }}</span>
+                  <span>:&nbsp;</span>
+                  <span>{{ option.label }}</span>
+                </div>
+              </template>
+            </ElementsInputSelect>
+          </li>
+          <li>
+            <ElementsInputNumber
+              id="line-height"
+              name="line height"
+              v-model="styles.lineHeightBase"
+              :step="0.1"
+              >line height</ElementsInputNumber
+            >
+          </li>
+          <li>
+            <ElementsInputNumber
+              id="letter-spacing"
+              name="letter spacing"
+              v-model="styles.letterSpacing"
+              :step="0.01"
+              >letter spacing</ElementsInputNumber
+            >
+          </li>
+        </menu>
+      </div>
     </div>
   </div>
 </template>
 <style lang="scss">
-.controls-content {
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 1.25rem 0.75rem;
-  width: 100%;
+.menu {
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px var(--controls-border-color) inset;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 8px;
+  right: 20px;
+  top: 68px;
+  transition: opacity 0.25s ease;
+  width: 333px;
+  z-index: 100;
 
-  label {
-    font-size: 0.85rem;
+  &.open {
+    opacity: 1;
   }
 
-  &__menu {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  &__content {
+    font-size: 1rem;
+    font-weight: 500;
+    max-height: calc(100svh - 88px);
+    overflow-y: scroll;
+    padding: 1.25rem 0.75rem;
+    width: 100%;
 
-    .opt-label {
-      span {
-        &:first-of-type {
-          font-weight: 600;
+    menu {
+      gap: 0.25rem;
+
+      .opt-label {
+        span {
+          &:first-of-type {
+            font-weight: 600;
+          }
         }
       }
     }

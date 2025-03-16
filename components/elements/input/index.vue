@@ -8,6 +8,8 @@ withDefaults(defineProps<TProps>(), {
   type: 'text',
 })
 
+const styles = useState<TStyles>('styles')
+
 const isFocused = ref(false)
 const toggleFocus = (value: boolean) => {
   isFocused.value = value
@@ -18,6 +20,10 @@ const toggleFocus = (value: boolean) => {
     :for="id"
     class="input"
     :class="[isFocused && 'input--focus', `input--${type}`]"
+    :style="{
+      '--input-border-lightness': styles.isDark ? '24%' : '84%',
+      '--input-border-lightness-focus': styles.isDark ? '43%' : '71%',
+    }"
   >
     <span class="input__label"><slot name="label" /></span>
     <div
@@ -32,22 +38,6 @@ const toggleFocus = (value: boolean) => {
   </label>
 </template>
 <style lang="scss">
-@property --outline-color {
-  inherits: false;
-  initial-value: hsl(320deg 5% 88%);
-  syntax: '<color>';
-}
-@property --input-color {
-  inherits: false;
-  initial-value: hsl(0deg 8% 97%);
-  syntax: '<color>';
-}
-@property --input-color-focused {
-  inherits: false;
-  initial-value: hsl(312deg 9% 90%);
-  syntax: '<color>';
-}
-
 @property --shadow-color {
   inherits: false;
   initial-value: 286deg 6% 65%;
@@ -65,6 +55,9 @@ const toggleFocus = (value: boolean) => {
   --shadow-opacity: 10%;
   --input-margin: 5px 0 0.75rem;
   --input-border-radius: 5px;
+  --input-border-color: hsl(0deg 0% var(--input-border-lightness));
+
+  font-size: 0.85rem;
 
   &--checkbox {
     align-items: center;
@@ -76,8 +69,8 @@ const toggleFocus = (value: boolean) => {
   }
 
   &--focus * {
-    --outline-color: hsl(315deg 11% 78%);
     --shadow-opacity: 30%;
+    --input-border-color: hsl(0deg 0% var(--input-border-lightness-focus));
   }
 
   &__input-container {
@@ -88,11 +81,11 @@ const toggleFocus = (value: boolean) => {
       0px 2.6px 2.8px -2.1px hsl(var(--shadow-color) / var(--shadow-opacity)),
       0.1px 5.2px 5.6px -2.8px hsl(var(--shadow-color) / var(--shadow-opacity));
 
-    background: var(--input-color);
+    background: rbg(var(--bg-color));
     border-radius: var(--input-border-radius);
     box-shadow: var(--input-shadow);
     margin: var(--input-margin);
-    outline: 1px solid var(--outline-color);
+    outline: 1px solid var(--input-border-color);
 
     input,
     select {
@@ -125,12 +118,8 @@ const toggleFocus = (value: boolean) => {
     &:hover,
     &:active,
     &:focus {
-      background: var(--input-color-focused);
+      background: rgba(var(--text-color), var(--base-opacity));
     }
-  }
-
-  &__label {
-    opacity: 0.8;
   }
 }
 </style>

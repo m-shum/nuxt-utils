@@ -131,6 +131,12 @@ const setDarkMode = () => {
     '--text-color',
     styles.value.isDark ? 'var(--text-color-dark)' : 'var(--text-color-light)'
   )
+  document.documentElement.style.setProperty(
+    '--base-opacity',
+    styles.value.isDark
+      ? 'var(--base-opacity-dark)'
+      : 'var(--base-opacity-light)'
+  )
 }
 
 const getLoadedFonts = () => {
@@ -176,7 +182,7 @@ export const useStyles = () => {
   const styles = useState<TStyles>('styles', () => ({
     gridCols: 1,
     isDark: false,
-    showOverlay: true,
+    showOverlay: false,
     textCols: 1,
     textColWidth: 64,
     lineHeightBase: 1.4,

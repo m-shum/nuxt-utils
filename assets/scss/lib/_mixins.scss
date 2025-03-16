@@ -6,15 +6,13 @@
 // Grid //
 @mixin get-cols($cols, $property) {
   & {
-    #{$property}: calc(
-      $cols * var(--col-width) + (($cols - 1) * var(--grid-gutter))
-    );
+    #{$property}: calc($cols * var(--col-width) + (($cols - 1) * var(--grid-gutter)));
   }
 }
 
 // Typography //
 @mixin get-line-height($size) {
-  @if $size == 'p' or $size ==6 {
+  @if $size =='p' or $size ==6 {
     & {
       line-height: calc(var(--text-#{$size}) * var(--line-height-base));
     }
@@ -27,18 +25,17 @@
 
   @else {
     & {
-      line-height: calc(
-        var(--text-#{$size}) *
-          (var(--line-height-base) - ((var(--line-height-base) - 1) / #{$size}))
-      );
+      line-height: calc(var(--text-#{$size}) * (var(--line-height-base) - ((var(--line-height-base) - 1) / #{$size})));
     }
   }
 }
 
 @function get-max-width($size) {
-  @if $size == 'p' or $size ==6 {
+  @if $size =='p' or $size ==6 {
     @return var(--text-col-width);
-  } @else {
+  }
+
+  @else {
     @return calc(var(--text-col-width) * (1 + (1 / #{$size})));
   }
 }
@@ -83,4 +80,13 @@
   //   margin-bottom: $baseline-push;
   //   padding-top: $baseline-shift;
   // }
+}
+
+@mixin rounded {
+  border-radius: 999px;
+}
+
+@mixin opaque {
+  background: rgb(var(--bg-color));
+  color: currentcolor;
 }

@@ -60,13 +60,13 @@ const incrementCount = (value: number) => {
 
     &:first-of-type {
       border-bottom-left-radius: var(--input-border-radius);
-      border-right: 1px solid var(--outline-color);
+      border-right: 1px solid var(--input-border-color);
       border-top-left-radius: var(--input-border-radius);
     }
 
     &:last-of-type {
       border-bottom-right-radius: var(--input-border-radius);
-      border-left: 1px solid var(--outline-color);
+      border-left: 1px solid var(--input-border-color);
       border-top-right-radius: var(--input-border-radius);
     }
 
