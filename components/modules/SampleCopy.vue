@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 <template>
-  <div class="flex-gap-base">
+  <div class="layout flex-gap-base">
     <div class="body-copy">
       <div>
         <h1>Universal Declaration of Human Rights</h1>
@@ -141,13 +141,17 @@
   </div>
 </template>
 <style lang="scss">
+.layout {
+  margin-bottom: 8rem;
+  margin-top: 8rem;
+}
+
 .body-copy,
 .examples {
-  margin-bottom: #{use-line-height(1)};
   max-width: 100%;
 
   h1 {
-    margin: #{use-line-height(1)} 0;
+    margin-bottom: #{use-line-height(1)};
   }
 
   h2 {
@@ -186,11 +190,10 @@
 }
 
 .body-copy {
-  margin-bottom: #{use-line-height(1)};
   max-width: 100%;
 
   h1 {
-    margin: #{use-line-height(1)} 0;
+    margin-bottom: #{use-line-height(1)};
   }
 
   h2 {

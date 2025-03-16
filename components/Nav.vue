@@ -2,6 +2,7 @@
 import { gsap } from 'gsap'
 
 const bem = useBem('nav')
+const currentTab = useState('currentTab')
 
 const $nav = useTemplateRef('navEl')
 const $container = useTemplateRef('containerEl')
@@ -102,8 +103,8 @@ const tween = computed(() => {
       :class="[isHidden ? bem('container', 'hidden') : bem('container')]"
       class="flex items-center justify-center"
     >
-      <button><span>Layout</span></button>
-      <button><span>Styles</span></button>
+      <button @click="currentTab = 'layout'"><span>Layout</span></button>
+      <button @click="currentTab = 'styles'"><span>Styles</span></button>
       <button
         aria-controls="controls-menu"
         @click="showControls = !showControls"

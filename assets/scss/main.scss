@@ -39,7 +39,6 @@ h6 {
 
 h1 {
   font-size: var(--text-1);
-
   @include get-line-height(1);
 }
 

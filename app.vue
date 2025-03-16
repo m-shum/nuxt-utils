@@ -1,14 +1,19 @@
 <script setup lang="ts">
 useBreakpoints()
+const currentTab = useState('currentTab', () => 'layout')
 </script>
 <template>
-  <!-- <Nav /> -->
-  <UtilsGrid />
   <ClientOnly>
     <UtilsControls />
   </ClientOnly>
-  <main class="container">
-    <SampleCopy />
+  <ModulesGrid />
+  <main>
+    <transition>
+      <ModulesSampleCopy class="container" v-if="currentTab === 'layout'" />
+    </transition>
+    <transition>
+      <ModulesStyles v-if="currentTab === 'styles'" />
+    </transition>
   </main>
 </template>
 <style lang="scss">
