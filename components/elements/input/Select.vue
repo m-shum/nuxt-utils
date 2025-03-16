@@ -73,7 +73,6 @@ const toggleDropdown = () => {
 }
 
 const handleKeydown = (e: any) => {
-  console.log('e', e.key)
   const { key } = e
 
   const exitKeys = ['Tab', 'Escape']

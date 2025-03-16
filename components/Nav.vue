@@ -68,7 +68,6 @@ const showNav = defineModel('showNav')
 const showControls = defineModel('showControls')
 
 watch(showNav, (newVal) => {
-  console.log('newVal', newVal)
   newVal ? tween.value.in() : tween.value.out()
 })
 </script>

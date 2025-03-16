@@ -213,8 +213,6 @@ export const useStyles = () => {
 
     setFontSizes(vars.value)
     setTextColWidth(vars.value)
-
-    console.log(Array.from(document.fonts))
   })
 
   watch(
