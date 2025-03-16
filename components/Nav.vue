@@ -3,11 +3,42 @@ import { gsap } from 'gsap'
 
 const bem = useBem('nav')
 
-const $container = useTemplateRef('containerEl')
 const $nav = useTemplateRef('navEl')
+const $container = useTemplateRef('containerEl')
 const { width } = useElementSize($container)
-const isHidden = ref(true)
 
+const showNav = defineModel('showNav')
+const showControls = defineModel('showControls')
+
+watch(showNav, (newVal) => {
+  newVal ? tween.value.in() : tween.value.out()
+})
+
+const buttons = computed(() =>
+  $container.value ? <HTMLElement[]>Array.from($container.value.children) : null
+)
+
+const handleButtonClick = (e: Event) => {
+  const btn = e.currentTarget as HTMLButtonElement
+
+  if (
+    btn.getAttribute('aria-controls') !== 'controls-menu' &&
+    showControls.value
+  ) {
+    showControls.value = false
+  }
+}
+const addButtonListeners = () => {
+  if (!isNonEmptyArray(buttons.value)) return
+  buttons.value!.forEach((button) => {
+    button.addEventListener('click', handleButtonClick)
+  })
+}
+onMounted(() => {
+  addButtonListeners()
+})
+
+const isHidden = ref(true)
 const tween = computed(() => {
   const duration = 0.75
   const ease = 'power2.inOut'
@@ -33,7 +64,6 @@ const tween = computed(() => {
         '>-0.5'
       )
   }
-
   const tweenOut = () => {
     gsap
       .timeline()
@@ -63,13 +93,6 @@ const tween = computed(() => {
 
   return { in: tweenIn, out: tweenOut }
 })
-
-const showNav = defineModel('showNav')
-const showControls = defineModel('showControls')
-
-watch(showNav, (newVal) => {
-  newVal ? tween.value.in() : tween.value.out()
-})
 </script>
 <template>
   <nav class="nav flex overflow-hidden justify-end opaque" ref="navEl">
@@ -81,7 +104,10 @@ watch(showNav, (newVal) => {
     >
       <button><span>Layout</span></button>
       <button><span>Styles</span></button>
-      <button @click="showControls = !showControls">
+      <button
+        aria-controls="controls-menu"
+        @click="showControls = !showControls"
+      >
         <span>Controls</span>
       </button>
     </div>

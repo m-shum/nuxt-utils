@@ -56,6 +56,7 @@ watch(
 </script>
 <template>
   <div
+    id="controls-menu"
     v-if="styles"
     ref="menu"
     class="menu opaque fixed"

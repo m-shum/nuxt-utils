@@ -30,7 +30,11 @@ useIsClickInsideTarget($root, hideMenu)
         : 'hsl(0deg 0% 64%)',
     }"
   >
-    <Nav v-model:showNav="showNav" v-model:showControls="showControls" />
+    <Nav
+      ref="nav"
+      v-model:showNav="showNav"
+      v-model:showControls="showControls"
+    />
     <UtilsControlsMenu ref="menu" :inert="!showControls" :open="showControls" />
   </aside>
 </template>
